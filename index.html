@@ -2,591 +2,527 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>培根 · 赵培涵</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暑性测试 · 21世纪第一个夏天</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+:root{
+  --sky:#7fc7e8; --sky-deep:#3a90c9; --sand:#fef6e4; --cream:#fffaf0;
+  --coral:#ff6b4a; --coral-deep:#e04e2e; --watermelon:#ff4d6d; --leaf:#3bb273;
+  --ink:#2a3d45; --ink-soft:#5a6d75; --yellow:#ffc93f; --shadow:rgba(42,61,69,.13);
+  --redmain:#e04e2e;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;overflow-x:hidden;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:linear-gradient(180deg,#afe2f2 0%,#dcf2f9 28%,var(--sand) 100%);
+  color:var(--ink); min-height:100vh; position:relative;
+}
+/* 圆润手写感标题字体（系统字体里挑圆体，国内都自带） */
+.fancy{font-family:"YouYuan","幼圆","PingFang SC","Microsoft YaHei",sans-serif;font-weight:700;}
+.wrap{position:relative;z-index:2;max-width:520px;margin:0 auto;padding:0 22px;}
 
-body {
-  font-family:'Noto Sans SC',sans-serif;
-  background:#f5f3ee; color:#111; overflow-x:hidden;
-}
+.scene{display:none;}
+.scene.active{display:block;animation:fade .5s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-/* scroll progress */
-#progress {
-  position:fixed; top:0; left:0; height:4px; width:0%;
-  background:#FF6B6B; z-index:300; transition:width 0.1s;
+.btn{
+  font-family:"YouYuan","幼圆","PingFang SC",sans-serif;font-weight:700;font-size:19px;color:#fff;
+  background:var(--coral);border:none;border-radius:40px;padding:15px 44px;cursor:pointer;
+  box-shadow:0 6px 0 var(--coral-deep),0 10px 18px var(--shadow);transition:transform .12s,box-shadow .12s;letter-spacing:1px;
 }
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--coral-deep),0 4px 10px var(--shadow);}
+.btn.ghost{background:#fff;color:var(--coral-deep);box-shadow:0 5px 0 #e9ddc4;}
+.btn.ghost:active{box-shadow:0 2px 0 #e9ddc4;}
 
-/* NAV */
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:200;
-  height:60px; display:flex; align-items:center; justify-content:space-between;
-  padding:0 2.5rem; background:#111; border-bottom:3px solid #111;
+/* ========== 封面 ========== */
+#cover{text-align:center;padding-top:54px;padding-bottom:60px;position:relative;}
+.bubbles{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden;}
+.bubble{position:absolute;bottom:-80px;border-radius:50%;pointer-events:auto;cursor:pointer;
+  background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.9),rgba(255,255,255,.15) 42%,rgba(127,199,232,.25) 75%);
+  border:1.5px solid rgba(255,255,255,.6);animation:rise linear infinite;}
+@keyframes rise{0%{transform:translateY(0) translateX(0);}100%{transform:translateY(-115vh) translateX(var(--drift));}}
+.bubble.pop{animation:popout .35s ease forwards;}
+@keyframes popout{0%{transform:scale(1);opacity:.9;}100%{transform:scale(1.8);opacity:0;}}
+.tag-top{font-size:14px;color:var(--sky-deep);letter-spacing:3px;margin-bottom:18px;font-weight:600;}
+.title-big{font-size:74px;line-height:1;color:var(--coral);text-shadow:4px 4px 0 #fff,7px 7px 0 var(--yellow);margin-bottom:8px;}
+.title-sub{font-size:22px;color:var(--coral-deep);letter-spacing:2px;margin-bottom:34px;}
+.cover-poem{
+  background:rgba(255,255,255,.72);backdrop-filter:blur(5px);border:2px dashed var(--coral);
+  border-radius:20px;padding:28px 24px;font-size:15.5px;line-height:2.05;color:var(--ink-soft);text-align:center;margin-bottom:30px;
 }
-.nav-logo { font-size:18px; font-weight:900; color:#fff; letter-spacing:0.05em; display:flex; align-items:center; gap:6px; }
-.nav-logo b { color:#FF6B6B; }
-.nav-links { display:flex; gap:1.25rem; }
-.nav-links a {
-  font-size:13px; font-weight:700; color:#ccc; text-decoration:none;
-  letter-spacing:0.05em; text-transform:uppercase; transition:color 0.15s;
+.cover-poem b{color:var(--redmain);font-weight:700;}
+.cover-poem .hl{color:var(--redmain);font-weight:700;}
+.cover-emoji{font-size:30px;letter-spacing:8px;margin-bottom:26px;}
+.cover-note{font-size:12.5px;color:var(--ink-soft);margin-top:18px;opacity:.85;}
+.match-banner{
+  background:linear-gradient(135deg,#fff0e8,#ffe4ec);border:2px solid var(--watermelon);border-radius:16px;
+  padding:14px 18px;margin-bottom:26px;font-size:14px;color:var(--coral-deep);line-height:1.6;
 }
-.nav-links a:hover { color:#FF6B6B; }
+.match-banner b{color:var(--watermelon);}
 
-/* HERO */
-.hero {
-  min-height:100vh; padding:100px 4rem 5rem;
-  display:flex; align-items:center; background:#f5f3ee;
-  position:relative; overflow:hidden;
-}
-.hero::before {
-  content:''; position:absolute; top:-120px; right:-120px;
-  width:500px; height:500px; border-radius:50%;
-  background:#FFD166; border:4px solid #111; z-index:0;
-}
-.hero::after {
-  content:''; position:absolute; bottom:-80px; left:60px;
-  width:200px; height:200px; border-radius:50%;
-  background:#A8DADC; border:4px solid #111; z-index:0;
-}
-.hero-inner {
-  max-width:1100px; margin:0 auto; width:100%;
-  display:grid; grid-template-columns:1fr auto; gap:3rem;
-  align-items:center; position:relative; z-index:1;
-}
-.hero-eyebrow {
-  display:inline-flex; align-items:center; gap:8px;
-  font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
-  background:#111; color:#FFD166; padding:6px 14px; border-radius:100px;
-  margin-bottom:1.5rem; opacity:0; transform:translateY(16px);
-  animation:pop 0.5s ease forwards 0.1s;
-}
-.hero-name {
-  font-size:clamp(3rem,7vw,6rem); font-weight:900; line-height:1;
-  margin-bottom:0.75rem; opacity:0; transform:translateY(16px);
-  animation:pop 0.5s ease forwards 0.2s;
-}
-.hero-name .highlight {
-  display:inline-block; background:#FF6B6B; color:#fff;
-  padding:0 14px; border-radius:8px; border:3px solid #111;
-  transform:rotate(-1.5deg);
-}
-.nickname {
-  display:inline-flex; align-items:center; gap:8px;
-  font-size:clamp(1rem,2vw,1.3rem); font-weight:700; color:#111;
-  background:#FFD166; border:2.5px solid #111; border-radius:100px;
-  padding:6px 18px; margin-bottom:1.25rem;
-  opacity:0; transform:translateY(16px); animation:pop 0.5s ease forwards 0.3s;
-}
-.nickname .bacon-strip {
-  display:inline-block; width:22px; height:14px; border-radius:3px;
-  background:repeating-linear-gradient(115deg,#C9402F 0 3px,#E8907E 3px 6px,#F5D5C8 6px 8px);
-  border:1.5px solid #111;
-}
-.hero-role {
-  font-size:clamp(1rem,1.6vw,1.25rem); font-weight:700; color:#444;
-  margin-bottom:1.25rem; opacity:0; transform:translateY(16px);
-  animation:pop 0.5s ease forwards 0.4s;
-}
-.hero-desc {
-  font-size:15px; color:#555; line-height:1.8; max-width:500px; margin-bottom:2rem;
-  opacity:0; transform:translateY(16px); animation:pop 0.5s ease forwards 0.5s;
-}
-.hero-tags {
-  display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:2.5rem;
-  opacity:0; transform:translateY(16px); animation:pop 0.5s ease forwards 0.6s;
-}
-.htag {
-  padding:7px 16px; border-radius:100px; font-size:12px; font-weight:700;
-  border:2.5px solid #111; letter-spacing:0.02em; cursor:default;
-  transition:transform 0.15s;
-}
-.htag:hover { transform:translateY(-3px) rotate(-2deg); }
-.htag-yellow{background:#FFD166;color:#111;}
-.htag-pink{background:#FF6B6B;color:#fff;}
-.htag-blue{background:#A8DADC;color:#111;}
-.htag-green{background:#95D5B2;color:#111;}
-.htag-purple{background:#C77DFF;color:#fff;}
-.hero-btns {
-  display:flex; gap:1rem; opacity:0; transform:translateY(16px);
-  animation:pop 0.5s ease forwards 0.7s;
-}
-.btn-solid {
-  padding:14px 32px; background:#111; color:#FFD166;
-  border:3px solid #111; border-radius:10px; font-size:15px; font-weight:700;
-  font-family:inherit; cursor:pointer; text-decoration:none;
-  transition:transform 0.15s,box-shadow 0.15s; box-shadow:4px 4px 0 #111;
-}
-.btn-solid:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 #111; }
-.btn-outline {
-  padding:14px 28px; background:#fff; color:#111;
-  border:3px solid #111; border-radius:10px; font-size:15px; font-weight:700;
-  font-family:inherit; cursor:pointer; text-decoration:none;
-  transition:transform 0.15s,box-shadow 0.15s; box-shadow:4px 4px 0 #111;
-}
-.btn-outline:hover { transform:translate(-2px,-2px); box-shadow:6px 6px 0 #111; background:#FFD166; }
+/* ========== 答题 ========== */
+#quiz{padding-top:30px;padding-bottom:50px;}
+.progress-bar{height:12px;background:rgba(255,255,255,.7);border-radius:20px;overflow:hidden;border:2px solid #fff;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--coral),var(--yellow));border-radius:20px;width:0;transition:width .4s;}
+.progress-txt{font-size:13px;color:var(--ink-soft);margin-top:8px;text-align:right;}
+.q-num{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:46px;color:var(--yellow);text-shadow:2px 2px 0 #fff;line-height:1;margin-top:22px;}
+.q-emoji{font-size:34px;margin:6px 0 4px;}
+.q-text{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:24px;color:var(--ink);}
+.opt{background:#fff;border:2.5px solid transparent;border-radius:16px;padding:16px 18px;margin-bottom:13px;font-size:15.5px;line-height:1.5;cursor:pointer;box-shadow:0 4px 0 #e9ddc4;transition:transform .1s,border-color .15s,box-shadow .1s;display:flex;align-items:center;gap:12px;}
+.opt:active{transform:translateY(3px);box-shadow:0 1px 0 #e9ddc4;}
+.opt .lab{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--sand);font-weight:700;color:var(--coral-deep);display:flex;align-items:center;justify-content:center;font-size:15px;}
+.opt.sel{border-color:var(--coral);box-shadow:0 4px 0 var(--coral-deep);}
+.opt.sel .lab{background:var(--coral);color:#fff;}
 
-.hero-avatar { opacity:0; animation:pop 0.5s ease forwards 0.4s; }
-.avatar-blob {
-  width:280px; height:280px; background:#FFD166; border:4px solid #111;
-  border-radius:60% 40% 55% 45%/45% 55% 40% 60%;
-  display:flex; align-items:center; justify-content:center; font-size:90px;
-  position:relative; animation:float 4s ease-in-out infinite;
-}
-.avatar-badge {
-  position:absolute; bottom:-16px; right:-16px; background:#FF6B6B; color:#fff;
-  border:3px solid #111; border-radius:100px; padding:6px 14px;
-  font-size:12px; font-weight:700; white-space:nowrap; box-shadow:3px 3px 0 #111;
-}
-.scroll-hint {
-  position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
-  font-size:12px; font-weight:700; color:#888; letter-spacing:0.1em;
-  display:flex; flex-direction:column; align-items:center; gap:4px;
-  animation:bounce 2s ease-in-out infinite; z-index:1;
-}
+/* ========== 计算 ========== */
+#calc{text-align:center;padding-top:140px;}
+.calc-emoji{font-size:56px;animation:spin 1.4s ease-in-out infinite;}
+@keyframes spin{0%,100%{transform:rotate(-12deg);}50%{transform:rotate(12deg);}}
+.calc-txt{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:20px;color:var(--ink);margin-top:24px;}
 
-/* STATS */
-.stats-strip {
-  background:#111; color:#fff; padding:1.75rem 4rem;
-  display:flex; justify-content:center; gap:3.5rem; flex-wrap:wrap;
-  border-top:3px solid #111; border-bottom:3px solid #111;
-}
-.stat-item { text-align:center; }
-.stat-big { font-size:2rem; font-weight:900; color:#FFD166; line-height:1; }
-.stat-small { font-size:12px; color:#aaa; margin-top:4px; font-weight:500; }
+/* ========== 结果 ========== */
+#result{padding-top:26px;padding-bottom:60px;}
+.card{background:var(--cream);border-radius:26px;padding:0 0 28px;overflow:hidden;box-shadow:0 14px 40px var(--shadow);border:3px solid #fff;}
+.card-top{padding:34px 26px 26px;text-align:center;color:#fff;}
+.card-top .big-emoji{font-size:72px;line-height:1;filter:drop-shadow(2px 4px 4px rgba(0,0,0,.15));}
+.card-en{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:15px;letter-spacing:5px;opacity:.92;margin-top:10px;}
+.card-name{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:40px;line-height:1.1;margin:2px 0 8px;text-shadow:2px 2px 0 rgba(0,0,0,.12);}
+.card-kw{font-size:14.5px;letter-spacing:1px;background:rgba(255,255,255,.25);display:inline-block;padding:5px 16px;border-radius:20px;}
+.card-body{padding:6px 26px 0;}
+.sec{margin-top:26px;}
+.sec-h{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:18px;color:var(--coral-deep);display:flex;align-items:center;gap:8px;margin-bottom:11px;}
+.sec-h::before{content:'';width:7px;height:20px;background:var(--yellow);border-radius:4px;}
+.sec-p{font-size:15px;line-height:1.95;color:var(--ink-soft);}
+.cp-wrap{display:flex;gap:12px;margin-top:14px;}
+.cp-box{flex:1;background:#fff;border-radius:14px;padding:14px 10px;text-align:center;border:2px solid #f0e6cf;}
+.cp-box.good{border-color:var(--leaf);}
+.cp-box.bad{border-color:var(--watermelon);}
+.cp-label{font-size:12px;color:var(--ink-soft);margin-bottom:6px;}
+.cp-emoji{font-size:30px;}
+.cp-name{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:15px;margin-top:4px;color:var(--ink);}
+.cp-tip{font-size:11.5px;color:var(--ink-soft);margin-top:5px;line-height:1.4;}
+.scores{margin-top:28px;background:#fff;border-radius:16px;padding:20px 18px;border:2px dashed #ecd9b0;}
+.scores-h{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:16px;text-align:center;}
+.score-row{display:flex;align-items:center;gap:10px;margin-bottom:13px;font-size:13.5px;}
+.score-row .nm{width:64px;flex-shrink:0;color:var(--ink-soft);}
+.score-track{flex:1;height:14px;background:#f0e6cf;border-radius:10px;overflow:hidden;}
+.score-fill{height:100%;border-radius:10px;width:0;transition:width 1s ease;}
+.score-val{width:30px;text-align:right;font-family:"YouYuan","幼圆",sans-serif;font-weight:700;color:var(--ink);flex-shrink:0;}
+.score-note{font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:6px;opacity:.78;}
+.invite{margin-top:28px;background:linear-gradient(135deg,#fff0e8,#ffe9d6);border-radius:18px;padding:22px 20px;text-align:center;border:2px solid var(--coral);}
+.invite-h{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:17px;color:var(--coral-deep);margin-bottom:6px;}
+.invite-sub{font-size:13px;color:var(--ink-soft);margin-bottom:16px;line-height:1.6;}
+#qrcode{display:inline-block;padding:10px;background:#fff;border-radius:12px;margin-bottom:14px;}
+#qrcode canvas,#qrcode img{display:block;}
+.invite-btns{display:flex;gap:10px;}
+.invite-btns .btn{flex:1;padding:13px 0;font-size:15px;}
+.ending{margin-top:28px;background:rgba(255,255,255,.55);border:2px dashed var(--sky-deep);border-radius:18px;padding:24px 22px;font-size:14.5px;line-height:2;color:var(--ink-soft);text-align:center;}
+.share-tip{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;color:var(--watermelon);margin-top:14px;font-size:15px;}
+.result-btns{display:flex;gap:12px;margin-top:24px;}
+.result-btns .btn{flex:1;padding:15px 0;font-size:17px;}
+.foot{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:30px;opacity:.6;line-height:1.7;}
 
-/* SECTION */
-.section-wrap { max-width:1100px; margin:0 auto; padding:5rem 4rem; }
-.section-header { margin-bottom:2.5rem; }
-.section-kicker {
-  display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.12em;
-  text-transform:uppercase; border:2px solid #111; border-radius:4px;
-  padding:4px 10px; margin-bottom:0.75rem;
-}
-.section-kicker.pink{background:#FF6B6B;color:#fff;}
-.section-kicker.yellow{background:#FFD166;color:#111;}
-.section-kicker.blue{background:#A8DADC;color:#111;}
-.section-title { font-size:clamp(2rem,4vw,3rem); font-weight:900; line-height:1.1; }
-.title-box { display:inline-block; border:3.5px solid #111; padding:2px 12px; border-radius:8px; background:#FFD166; }
-
-/* EXP — collapsible */
-.exp-list { display:flex; flex-direction:column; gap:1.5rem; }
-.exp-card {
-  background:#fff; border:3px solid #111; border-radius:20px;
-  box-shadow:6px 6px 0 #111; transition:transform 0.15s,box-shadow 0.15s;
-  overflow:hidden;
-}
-.exp-card:hover { transform:translate(-3px,-3px); box-shadow:9px 9px 0 #111; }
-.exp-summary {
-  padding:1.75rem 2rem; cursor:pointer;
-  display:flex; justify-content:space-between; align-items:center; gap:1rem;
-  user-select:none;
-}
-.exp-summary-left { flex:1; }
-.exp-co { font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#888; margin-bottom:4px; }
-.exp-role { font-size:21px; font-weight:900; margin-bottom:0.75rem; }
-.exp-meta-row { display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; }
-.exp-date { font-size:12px; font-weight:700; background:#111; color:#FFD166; padding:5px 14px; border-radius:100px; white-space:nowrap; }
-.mini-pills { display:flex; gap:0.4rem; flex-wrap:wrap; }
-.mini-pill { font-size:11px; font-weight:700; padding:3px 10px; border-radius:100px; border:2px solid #111; }
-.toggle-btn {
-  flex-shrink:0; width:44px; height:44px; border-radius:50%;
-  background:#FFD166; border:3px solid #111;
-  display:flex; align-items:center; justify-content:center;
-  font-size:20px; font-weight:900; cursor:pointer;
-  transition:transform 0.3s, background 0.2s;
-}
-.exp-card.open .toggle-btn { transform:rotate(45deg); background:#FF6B6B; color:#fff; }
-
-.exp-detail {
-  max-height:0; overflow:hidden;
-  transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1);
-}
-.exp-detail-inner { padding:0 2rem 1.75rem; }
-.exp-bullets { list-style:none; display:flex; flex-direction:column; gap:0.6rem; border-top:2px dashed #ddd; padding-top:1.25rem; }
-.exp-bullets li { font-size:14px; color:#444; line-height:1.75; padding-left:1.5rem; position:relative; }
-.exp-bullets li::before { content:'▸'; position:absolute; left:0; color:#FF6B6B; font-size:12px; top:3px; }
-.exp-bullets li strong { color:#111; font-weight:700; }
-
-.pill-y{background:#FFD166;color:#111;}
-.pill-p{background:#FF6B6B;color:#fff;}
-.pill-b{background:#A8DADC;color:#111;}
-.pill-g{background:#95D5B2;color:#111;}
-
-/* SKILLS */
-.skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.25rem; }
-.skill-card {
-  border:3px solid #111; border-radius:16px; padding:1.5rem;
-  box-shadow:5px 5px 0 #111; transition:transform 0.15s,box-shadow 0.15s; cursor:default;
-}
-.skill-card:hover { transform:translate(-2px,-2px) rotate(-1deg); box-shadow:7px 7px 0 #111; }
-.sk-yellow{background:#FFD166;} .sk-pink{background:#FF6B6B;color:#fff;}
-.sk-blue{background:#A8DADC;} .sk-green{background:#95D5B2;}
-.skill-emoji { font-size:32px; margin-bottom:0.75rem; transition:transform 0.2s; display:inline-block; }
-.skill-card:hover .skill-emoji { transform:scale(1.2) rotate(-8deg); }
-.skill-name { font-size:17px; font-weight:900; margin-bottom:0.5rem; }
-.skill-items { font-size:13px; line-height:1.8; opacity:0.85; }
-
-/* EDU */
-.edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
-.edu-card { background:#fff; border:3px solid #111; border-radius:16px; padding:1.75rem; box-shadow:5px 5px 0 #111; }
-.edu-school { font-size:20px; font-weight:900; margin-bottom:4px; }
-.edu-major { font-size:13px; font-weight:700; color:#FF6B6B; margin-bottom:4px; }
-.edu-date { font-size:12px; color:#888; margin-bottom:1rem; font-weight:600; }
-.edu-items { list-style:none; }
-.edu-items li { font-size:13px; color:#555; padding:5px 0; border-bottom:1.5px dashed #ddd; }
-.edu-items li:last-child { border-bottom:none; }
-.research-card { background:#C77DFF; border:3px solid #111; border-radius:20px; padding:2rem; box-shadow:6px 6px 0 #111; margin-top:1.25rem; grid-column:1/-1; }
-.research-label { display:inline-block; background:#111; color:#C77DFF; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:4px 10px; border-radius:4px; margin-bottom:0.75rem; }
-.research-title { font-size:18px; font-weight:900; color:#111; margin-bottom:0.75rem; line-height:1.4; }
-.research-desc { font-size:13px; color:#2a0050; line-height:1.7; margin-bottom:1rem; }
-.research-venues { display:flex; flex-direction:column; gap:6px; }
-.rv { font-size:13px; color:#111; font-weight:600; display:flex; gap:8px; align-items:flex-start; }
-.rv::before { content:'★'; color:#FFD166; flex-shrink:0; }
-
-/* WORKS placeholder */
-.works-empty {
-  border:3px dashed #111; border-radius:20px; padding:3rem 2rem;
-  text-align:center; background:#fff;
-}
-.works-empty .we-emoji { font-size:48px; margin-bottom:1rem; }
-.works-empty .we-title { font-size:18px; font-weight:900; margin-bottom:0.5rem; }
-.works-empty .we-desc { font-size:14px; color:#666; line-height:1.7; }
-
-/* CONTACT */
-#contact { background:#111; padding:5rem 4rem; text-align:center; }
-.contact-inner { max-width:600px; margin:0 auto; }
-.contact-kicker { display:inline-block; background:#FFD166; color:#111; border:2px solid #FFD166; border-radius:4px; font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:4px 10px; margin-bottom:1rem; }
-.contact-title { font-size:clamp(2rem,5vw,3.5rem); font-weight:900; color:#fff; margin-bottom:0.75rem; }
-.contact-sub { font-size:15px; color:#aaa; margin-bottom:2rem; }
-.contact-chips { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:2rem; }
-.chip { display:flex; align-items:center; gap:8px; padding:12px 22px; background:#fff; color:#111; border:2.5px solid #fff; border-radius:12px; font-size:14px; font-weight:700; text-decoration:none; box-shadow:4px 4px 0 rgba(255,255,255,0.25); transition:all 0.15s; }
-.chip:hover { background:#FFD166; transform:translate(-2px,-2px); }
-.avail-badge { display:inline-flex; align-items:center; gap:8px; background:#1a1a1a; border:2px solid #95D5B2; color:#95D5B2; border-radius:100px; padding:8px 20px; font-size:13px; font-weight:700; }
-.avail-dot { width:8px; height:8px; border-radius:50%; background:#95D5B2; animation:blink 1.8s ease-in-out infinite; }
-
-footer { background:#0a0a0a; color:#555; text-align:center; padding:1.5rem; font-size:12px; font-weight:600; letter-spacing:0.04em; }
-
-/* bacon stripe divider */
-.stripe-divider {
-  height:14px;
-  background:repeating-linear-gradient(115deg,#C9402F 0 5px,#E8907E 5px 10px,#F5D5C8 10px 14px);
-  border-top:3px solid #111; border-bottom:3px solid #111;
-}
-
-@keyframes pop { from{opacity:0;transform:translateY(16px) scale(0.97);} to{opacity:1;transform:none;} }
-@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-@keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
-@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(6px);} }
-
-.reveal { opacity:0; transform:translateY(28px); transition:opacity 0.6s ease,transform 0.6s ease; }
-.reveal.visible { opacity:1; transform:none; }
-
-@media(max-width:768px){
-  .hero{padding:90px 1.5rem 3rem;}
-  .hero-inner{grid-template-columns:1fr;}
-  .hero-avatar{display:none;}
-  .section-wrap{padding:3rem 1.5rem;}
-  .stats-strip{gap:1.75rem; padding:1.5rem 2rem;}
-  .edu-grid{grid-template-columns:1fr;}
-  nav{padding:0 1rem;} .nav-links{gap:0.75rem;}
-  .exp-summary{flex-wrap:wrap;}
-}
+/* ========== 匹配度弹层 ========== */
+.match-result{background:linear-gradient(135deg,#fff,#fff6f0);border:3px solid var(--watermelon);border-radius:22px;padding:26px 22px;text-align:center;margin-bottom:24px;box-shadow:0 10px 30px var(--shadow);}
+.match-pct{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:64px;color:var(--watermelon);line-height:1;text-shadow:2px 2px 0 #fff;}
+.match-vs{display:flex;align-items:center;justify-content:center;gap:14px;margin:14px 0;}
+.match-vs .who{font-size:34px;}
+.match-vs .x{font-size:18px;color:var(--ink-soft);}
+.match-names{font-size:13px;color:var(--ink-soft);margin-bottom:10px;}
+.match-comment{font-size:15px;line-height:1.8;color:var(--ink);background:#fff;border-radius:14px;padding:14px 16px;border:2px dashed #f0c0c0;}
 </style>
 </head>
 <body>
+<div class="bubbles" id="bubbles"></div>
+<div class="wrap">
 
-<div id="progress"></div>
+  <!-- 封面 -->
+  <section id="cover" class="scene active">
+    <div class="tag-top">☀ 21世纪第一个夏天 · 限定 ☀</div>
+    <div class="title-big fancy">暑性测试</div>
+    <div class="title-sub fancy">你是夏天里的哪一种？</div>
+    <div id="matchBanner" class="match-banner" style="display:none;"></div>
+    <div class="cover-poem">
+      有人说，<b>2026年是21世纪的第一个夏天</b>。<br>
+      按这个算法，我们前面那些夏天，<br>都只是春天的预告片。<br>
+      真正的盛夏，现在才开始。<br><br>
+      在你大汗淋漓地奔赴这个夏天之前，<br>先回答 12 个问题——<br>
+      看看小时候那个一身汗、满手冰棍水的你，<br>
+      <span class="hl">骨子里藏着哪一种夏天的脾气。</span>
+    </div>
+    <div class="cover-emoji">🍦 🌊 🦟 🍉 ⛈️</div>
+    <button class="btn" onclick="startQuiz()">开始测试</button>
+    <div class="cover-note">一份不太科学，但可能有点准的测试 · 约 3 分钟<br>（试试戳爆飘上来的泡泡 🫧）</div>
+  </section>
 
-<nav>
-  <div class="nav-logo">培根<b>🥓</b></div>
-  <div class="nav-links">
-    <a href="#experience">经历</a>
-    <a href="#works">作品</a>
-    <a href="#skills">技能</a>
-    <a href="#education">教育</a>
-    <a href="#contact">联系</a>
-  </div>
-</nav>
+  <!-- 答题 -->
+  <section id="quiz" class="scene">
+    <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
+    <div class="progress-txt" id="ptxt">第 1 / 12 题</div>
+    <div class="q-num fancy" id="qnum">Q1</div>
+    <div class="q-emoji" id="qemoji">🌀</div>
+    <div class="q-text" id="qtext"></div>
+    <div id="opts"></div>
+  </section>
 
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">✦ 内容运营 · AI工具 · 数据驱动</div>
-      <div class="nickname"><span class="bacon-strip"></span> 江湖人称「培根」</div>
-      <h1 class="hero-name">我是<span class="highlight">赵培涵</span></h1>
-      <p class="hero-role">Content Operator &amp; AI Workflow Builder</p>
-      <p class="hero-desc">
-        擅长用 AI 工具重构内容生产流程。<br>
-        相信好的运营不只是执行，更是把数据、用户与创意连成一条有温度的线。
-      </p>
-      <div class="hero-tags">
-        <span class="htag htag-yellow">内容运营</span>
-        <span class="htag htag-pink">社群运营</span>
-        <span class="htag htag-blue">AI Agent 搭建</span>
-        <span class="htag htag-green">数据分析</span>
-        <span class="htag htag-purple">品牌 IP 孵化</span>
+  <!-- 计算 -->
+  <section id="calc" class="scene">
+    <div class="calc-emoji">🍧</div>
+    <div class="calc-txt" id="calctxt">正在熔断你的夏日数据…</div>
+  </section>
+
+  <!-- 结果 -->
+  <section id="result" class="scene">
+    <div id="matchBox"></div>
+    <div class="card" id="card">
+      <div class="card-top" id="cardtop">
+        <div class="big-emoji" id="rEmoji">🍦</div>
+        <div class="card-en" id="rEn">LICK</div>
+        <div class="card-name fancy" id="rName">冰棍型</div>
+        <div class="card-kw" id="rKw">快乐限时 · 入口即化</div>
       </div>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-solid">联系我 →</a>
-        <a href="#experience" class="btn-outline">查看经历 ↓</a>
+      <div class="card-body">
+        <div class="sec"><div class="sec-h">那年夏天的你</div><div class="sec-p" id="rMemory"></div></div>
+        <div class="sec"><div class="sec-h">你的暑性人格</div><div class="sec-p" id="rAnalysis"></div></div>
+        <div class="sec">
+          <div class="sec-h">夏日关系学</div>
+          <div class="cp-wrap">
+            <div class="cp-box good">
+              <div class="cp-label">🤝 天生搭子</div>
+              <div class="cp-emoji" id="cpGoodE">🍉</div>
+              <div class="cp-name" id="cpGoodN">西瓜型</div>
+              <div class="cp-tip" id="cpGoodT"></div>
+            </div>
+            <div class="cp-box bad">
+              <div class="cp-label">⚔️ 天生冤家</div>
+              <div class="cp-emoji" id="cpBadE">🌿</div>
+              <div class="cp-name" id="cpBadN">花露水型</div>
+              <div class="cp-tip" id="cpBadT"></div>
+            </div>
+          </div>
+        </div>
+        <div class="scores">
+          <div class="scores-h">📊 你的暑性数据</div>
+          <div class="score-row"><span class="nm">🔥 能量值</span><div class="score-track"><div class="score-fill" id="sE" style="background:linear-gradient(90deg,#ff6b4a,#ffc93f)"></div></div><span class="score-val" id="vE">0</span></div>
+          <div class="score-row"><span class="nm">💧 温度值</span><div class="score-track"><div class="score-fill" id="sW" style="background:linear-gradient(90deg,#3a90c9,#7fc7e8)"></div></div><span class="score-val" id="vW">0</span></div>
+          <div class="score-row"><span class="nm">⏱ 节奏感</span><div class="score-track"><div class="score-fill" id="sS" style="background:linear-gradient(90deg,#3bb273,#a8e063)"></div></div><span class="score-val" id="vS">0</span></div>
+          <div class="score-row"><span class="nm">🧭 自我度</span><div class="score-track"><div class="score-fill" id="sO" style="background:linear-gradient(90deg,#ff4d6d,#ff9a8b)"></div></div><span class="score-val" id="vO">0</span></div>
+          <div class="score-note">数值由你的作答实时生成 · 换个答案，你可能就是另一种夏天</div>
+        </div>
+        <div class="invite">
+          <div class="invite-h">📲 喊朋友来测，看你俩多合拍</div>
+          <div class="invite-sub">把你的专属二维码 / 链接发给朋友<br>他测完，就能算出你俩的「夏天匹配度」</div>
+          <div id="qrcode"></div>
+          <div class="invite-btns">
+            <button class="btn" onclick="copyLink()">复制邀请链接</button>
+          </div>
+        </div>
+        <div class="ending">
+          测试到此结束，但夏天才刚刚开始。<br>
+          不管你是哪一种暑性，都记得——<br>
+          去吃根冰棍，去追那辆冰淇淋车，<br>
+          去过一个，你小时候会羡慕的夏天。
+          <div class="share-tip">截图分享，看看朋友都是哪种暑性 →</div>
+        </div>
+        <div class="result-btns">
+          <button class="btn ghost" onclick="restart()">再测一次</button>
+          <button class="btn" onclick="saveShot()">保存结果</button>
+        </div>
+        <div class="foot">暑性测试 · 21世纪第一个夏天限定<br>本测试仅供娱乐，别拿它当人生判决书 🌿</div>
       </div>
     </div>
-    <div class="hero-avatar">
-      <div class="avatar-blob">
-        🥓
-        <div class="avatar-badge">可随时到岗 ✓</div>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-hint">SCROLL<span>↓</span></div>
+  </section>
+
 </div>
 
-<div class="stats-strip">
-  <div class="stat-item"><div class="stat-big" data-target="60" data-suffix="w+">0</div><div class="stat-small">单篇小红书最高阅读</div></div>
-  <div class="stat-item"><div class="stat-big" data-target="1500" data-suffix="+">0</div><div class="stat-small">社群覆盖用户</div></div>
-  <div class="stat-item"><div class="stat-big" data-target="150" data-suffix="+">0</div><div class="stat-small">KOC / 写手管理</div></div>
-  <div class="stat-item"><div class="stat-big" data-target="2000" data-suffix="+">0</div><div class="stat-small">累计引流用户</div></div>
-  <div class="stat-item"><div class="stat-big" data-target="4" data-suffix="场">0</div><div class="stat-small">学术论坛获奖</div></div>
-</div>
-
-<div class="stripe-divider"></div>
-
-<section id="experience">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <div class="section-kicker pink">Work Experience</div>
-      <h2 class="section-title">实习经历 <span class="title-box">点击展开</span></h2>
-    </div>
-    <div class="exp-list">
-
-      <div class="exp-card reveal open">
-        <div class="exp-summary">
-          <div class="exp-summary-left">
-            <div class="exp-co">波克科技集团有限公司</div>
-            <div class="exp-role">公益运营实习生</div>
-            <div class="exp-meta-row">
-              <span class="exp-date">2025.10 — 2026.04</span>
-              <div class="mini-pills">
-                <span class="mini-pill pill-y">3篇深度专访</span>
-                <span class="mini-pill pill-p">1500+ 用户</span>
-                <span class="mini-pill pill-b">AI Agent</span>
-              </div>
-            </div>
-          </div>
-          <div class="toggle-btn">+</div>
-        </div>
-        <div class="exp-detail">
-          <div class="exp-detail-inner">
-            <ul class="exp-bullets">
-              <li><strong>内容挖掘与传播：</strong>负责微信公众号选题策划；将上千条活动反馈喂给 GPT 挖掘故事线索，产出 3 篇「Game Master说」深度专访，浏览与转赞创新高，获《公益时报》等媒体转载。</li>
-              <li><strong>AI 写作工作流：</strong>用 Claude 将专访的内容结构、叙事节奏与文风规律蒸馏为可复用 Skill 文档，输入人物 idea 即可驱动「脑暴 → 访谈提纲 → 初稿 → 文风对齐」全流程，已验证于第 4 篇。</li>
-              <li><strong>社群运营：</strong>支持十余个 Game Master 社群，覆盖 1500+ 用户；用 Coze 搭建社群 AI Agent，实现申请人智能筛选、FAQ 自动回复；推动「拉新→留存→反馈→裂变」路径优化。</li>
-              <li><strong>降本增效：</strong>基于 OpenClaw 批量制作活动拓展包，内容生产周期从 6 个月压缩至 10 分钟完成 80%；AI 撰写年度可持续发展报告，外包成本从 1w+ 降至近零。</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="exp-card reveal">
-        <div class="exp-summary">
-          <div class="exp-summary-left">
-            <div class="exp-co">流利说英语</div>
-            <div class="exp-role">内容运营实习生</div>
-            <div class="exp-meta-row">
-              <span class="exp-date">2024.10 — 2025.01</span>
-              <div class="mini-pills">
-                <span class="mini-pill pill-p">60w+ 阅读</span>
-                <span class="mini-pill pill-y">2000+ 引流</span>
-                <span class="mini-pill pill-b">KOC 150+</span>
-              </div>
-            </div>
-          </div>
-          <div class="toggle-btn">+</div>
-        </div>
-        <div class="exp-detail">
-          <div class="exp-detail-inner">
-            <ul class="exp-bullets">
-              <li><strong>小红书矩阵运营：</strong>接手 3 个垂类账号，发布引流笔记 100+ 篇，单篇最高阅读 <strong>60w+</strong>，累计引流用户超 2000 人。</li>
-              <li><strong>数据提升：</strong>开口率 15%（↑5%）；加私率 40%（↑15%）；首购率 8%（↑3%）。自主撰写 0-1 起号 SOP，一周内快速起号（单篇 30w+，转赞评 1w+）。</li>
-              <li><strong>KOC 管理：</strong>撰写 KOC 管理 SOP 与写手审核 SOP，管理 150+ 人，打通内容策划——渠道分发——用户运营——前端转化全流程。</li>
-              <li><strong>品牌 IP 孵化：</strong>支持「John 要说英语」从 0 到 1 孵化；首个视频点赞破千，第二个破万。</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="exp-card reveal">
-        <div class="exp-summary">
-          <div class="exp-summary-left">
-            <div class="exp-co">上海市徐汇区凌云街道（龙州片区）</div>
-            <div class="exp-role">学生兼职团支部副书记</div>
-            <div class="exp-meta-row">
-              <span class="exp-date">2023.05 — 2023.10</span>
-              <div class="mini-pills">
-                <span class="mini-pill pill-b">12场活动</span>
-                <span class="mini-pill pill-y">参与率↑40%</span>
-              </div>
-            </div>
-          </div>
-          <div class="toggle-btn">+</div>
-        </div>
-        <div class="exp-detail">
-          <div class="exp-detail-inner">
-            <ul class="exp-bullets">
-              <li>问卷（150份）+ 深度访谈（20人）提炼老年群体核心需求，针对性设计活动主题。</li>
-              <li>主导策划落地社区活动 12 场，活动参与率提升 <strong>40%</strong>，满意度 <strong>92%</strong>。</li>
-              <li>联动社区卫生中心、公益组织等外部单位，搭建社区微信群覆盖 200+ 居民。</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="stripe-divider"></div>
-
-<section id="works">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <div class="section-kicker yellow">Portfolio</div>
-      <h2 class="section-title">作品 <span class="title-box">集</span></h2>
-    </div>
-    <div class="works-empty reveal">
-      <div class="we-emoji">🚧</div>
-      <div class="we-title">爆款笔记 & SOP 即将上线</div>
-      <div class="we-desc">这里会放小红书爆款笔记、起号 SOP、KOC 管理 SOP 等作品卡片，<br>支持封面图 + 数据 + 一键跳转原文。</div>
-    </div>
-  </div>
-</section>
-
-<div class="stripe-divider"></div>
-
-<section id="skills">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <div class="section-kicker blue">Skills & Tools</div>
-      <h2 class="section-title">技能 <span class="title-box">工具箱</span></h2>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card sk-yellow reveal"><div class="skill-emoji">🤖</div><div class="skill-name">AI 工具</div><div class="skill-items">ChatGPT · Claude · Coze<br>AI Agent 搭建 · Prompt 工程<br>OpenClaw · AI 辅助生产</div></div>
-      <div class="skill-card sk-pink reveal"><div class="skill-emoji">📊</div><div class="skill-name">数据分析</div><div class="skill-items">Python · STATA · SPSS<br>SQL · Excel 数据透视表<br>数据可视化 · 实证论文</div></div>
-      <div class="skill-card sk-blue reveal"><div class="skill-emoji">✍️</div><div class="skill-name">内容创作</div><div class="skill-items">人物深度专访 · 爆款笔记<br>品牌文案 · SOP 标准化<br>可画 · 创客贴</div></div>
-      <div class="skill-card sk-green reveal"><div class="skill-emoji">📱</div><div class="skill-name">运营能力</div><div class="skill-items">小红书矩阵 · 社群运营<br>用户增长 · KOC 管理<br>问卷调研 · 用户访谈</div></div>
-    </div>
-  </div>
-</section>
-
-<div class="stripe-divider"></div>
-
-<section id="education">
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <div class="section-kicker pink">Education & Research</div>
-      <h2 class="section-title">教育 <span class="title-box">与学术</span></h2>
-    </div>
-    <div class="edu-grid">
-      <div class="edu-card reveal">
-        <div class="edu-school">华东师范大学</div>
-        <div class="edu-major">社会工作专业 · 硕士在读</div>
-        <div class="edu-date">2025.09 — 2027.07</div>
-        <ul class="edu-items"><li>年级长</li><li>院实践部干事</li></ul>
-      </div>
-      <div class="edu-card reveal">
-        <div class="edu-school">华东理工大学</div>
-        <div class="edu-major">公共事业管理 · 本科</div>
-        <div class="edu-date">2021.09 — 2025.07</div>
-        <ul class="edu-items">
-          <li>专业前 10%，均分 89.85，GPA 3.80/4</li>
-          <li>CET-6（523）</li>
-          <li>金龙鱼奖学金 · 校特等奖学金</li>
-          <li>校优秀毕业生 · 校优秀毕业论文</li>
-          <li>学习委员</li>
-        </ul>
-      </div>
-      <div class="research-card reveal">
-        <div class="research-label">Academic Paper</div>
-        <div class="research-title">《危机情境社会动员中政策叙事的作用：一项调查实验》</div>
-        <div class="research-desc">独立作者 · 面向 1000 名被试，设置 4 实验组 + 1 对照组，用 STATA 实证分析政策叙事、个体规范与亲社会行为意愿的作用机制。</div>
-        <div class="research-venues">
-          <div class="rv">2024 中国应急管理学科发展论坛（上海交通大学承办）— 会场唯一本科生独作</div>
-          <div class="rv">清华大学社会科学学院博士生学术论坛</div>
-          <div class="rv">共计 4 场论坛汇报并获奖</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="contact-inner">
-    <div class="contact-kicker reveal">✉ Get In Touch</div>
-    <h2 class="contact-title reveal">一起聊聊？🥓</h2>
-    <p class="contact-sub reveal">可随时到岗，一周 4 个工作日，6 月中旬后可 5 个工作日</p>
-    <div class="contact-chips reveal">
-      <a href="mailto:bacon_zhao@163.com" class="chip">✉ bacon_zhao@163.com</a>
-      <a href="tel:13777433852" class="chip">📞 137-7743-3852</a>
-      <span class="chip">📍 上海闵行 / 杭州拱墅</span>
-    </div>
-    <div class="reveal"><span class="avail-badge"><span class="avail-dot"></span>积极求职中 · 可随时到岗</span></div>
-  </div>
-</section>
-
-<footer>© 2026 赵培涵「培根」&nbsp;·&nbsp; 用 Claude 辅助生产，用数据说话，用故事打动人 ✦</footer>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-// scroll progress
-window.addEventListener('scroll', () => {
-  const h = document.documentElement;
-  const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-  document.getElementById('progress').style.width = pct + '%';
-});
+/* ====== 题库 ====== */
+const QS=[
+ {emoji:"🌀",t:"那年头的电风扇前，你一定干过：",opts:[
+   {x:'对着风扇「啊——」听自己变成机器人',s:{E:2,W:1}},
+   {x:'凑到扇叶嗡嗡响，看头发被吹成爆炸头',s:{E:2,O:1}},
+   {x:'把湿毛巾搭风扇上，发明了土空调，得意一整天',s:{S:1,E:1}},
+   {x:'嫌吵，我更爱自己扇扇子，有掌控感',s:{E:-1,S:1}}]},
+ {emoji:"📺",t:"暑假爸妈上班，你看了一下午电视。他们进门一摸电视——烫的。你：",opts:[
+   {x:'火速转移话题：「妈！你今天好像瘦了！」',s:{O:2,E:1}},
+   {x:'当场瓦解，竹筒倒豆子全招了',s:{W:1,E:-1}},
+   {x:'死不松口：「是它自己热的！」',s:{O:2,E:2}},
+   {x:'淡定：「哦被你发现了。」然后接着看',s:{W:-2,E:-1}}]},
+ {emoji:"🍦",t:"冰箱就剩一根冰棍，冻在最里头，你：",opts:[
+   {x:'我的，踮脚扒冰箱也要够到',s:{O:2,E:1}},
+   {x:'让给爸妈，他们感动得当场决定带我去再买一箱',s:{O:-3,W:1}},
+   {x:'舍不得吃，含嘴里慢慢化，化成水也要回收',s:{W:1,S:-1}},
+   {x:'突然惊觉今天已经吃了三根，完了要被骂死了',s:{W:1,E:-1}}]},
+ {emoji:"🐜",t:"暑假院儿里一群小孩玩，玩着玩着把你晾一边了，你：",opts:[
+   {x:'蹲下研究蚂蚁，假装我本来就想看蚂蚁',s:{E:-2}},
+   {x:'牵来邻居家的狗，瞬间成为全场焦点，反客为主',s:{E:2,O:1}},
+   {x:'大喊「那我不跟你们玩了！」然后等他们来追',s:{E:2,W:1}},
+   {x:'转头回家吹空调看电视，告辞',s:{O:2,E:-1}}]},
+ {emoji:"📒",t:"开学了，你的暑假作业：",opts:[
+   {x:'早写完了，还顺便把答案卖给同学抄，小赚一笔',s:{S:3,O:2}},
+   {x:'最后三天闭关，一人一笔，硬是凑出一个奇迹',s:{S:-3,E:1}},
+   {x:'找全班最快的人借来，流水线分工抄',s:{S:-2,W:1}},
+   {x:'一个字没写，但心理建设做得很到位，丝毫不慌',s:{W:-2,E:-1}}]},
+ {emoji:"🦟",t:"腿上鼓个大蚊子包，你：",opts:[
+   {x:'口水、十字、风油精，土方子全上',s:{S:2,W:1}},
+   {x:'本来没多痒，越挠越痒，越痒越挠，停不下来',s:{E:2,O:1}},
+   {x:'满屋追那只蚊子，不报仇睡不着',s:{E:3,W:1}},
+   {x:'蹲下来仔细观察大包的鼓起与消退，搞起了研究',s:{W:-1,E:-1}}]},
+ {emoji:"😴",t:"午觉时间到，大人逼你睡，你：",opts:[
+   {x:'闭眼装睡，脚步声一远立刻满血复活',s:{O:2,E:1}},
+   {x:'真的乖乖睡着了，我是听话好孩子',s:{S:2,W:1}},
+   {x:'睁眼到天花板数出花来还是睡不着',s:{W:1,E:-1}},
+   {x:'不睡，专心把胳膊往凉席上压，研究那个格子印',s:{E:-1,W:1}}]},
+ {emoji:"🕯️",t:"夏天最热那天突然停电，你：",opts:[
+   {x:'谢天谢地不用写作业了，这是天意',s:{O:1,S:-2,E:1}},
+   {x:'黑灯瞎火中我悟了，我是来拯救地球大战UFO的救世大侠',s:{E:3,W:1}},
+   {x:'怕黑，光速贴到大人身边',s:{W:1,E:-2}},
+   {x:'淡定点蜡烛，假装自己是见过世面的成熟大人',s:{W:-2,E:-1}}]},
+ {emoji:"🏪",t:"爸妈每天给你五块零花钱，你的花法：",opts:[
+   {x:'不知道啥时候就花没了，我也很震惊，它自己长腿跑了',s:{S:-2,E:1}},
+   {x:'买干脆面，主要为了里面的卡，面捏碎喂蚂蚁',s:{W:-1,O:1}},
+   {x:'买俩冰棍，分一个给一起玩的小伙伴',s:{O:-2,W:1}},
+   {x:'攒着不花，我有我的大计划',s:{S:2,O:1}}]},
+ {emoji:"💦",t:"偷偷下河玩水回来，头发还湿着，被一眼识破，你：",opts:[
+   {x:'嘴硬：「我没有！我是出汗！」',s:{O:2,E:1}},
+   {x:'当场认栽，反正下次还去',s:{W:-1,O:1}},
+   {x:'吓得当场背出三百首古诗转移注意力',s:{E:2,W:1}},
+   {x:'坦白从宽，然后被罚站思考人生',s:{W:1,S:1}}]},
+ {emoji:"🍧",t:"听到「叮叮当当」的冰淇淋车音乐，你：",opts:[
+   {x:'撒腿就追，鞋掉了都不回头捡',s:{E:3,S:-1}},
+   {x:'飞奔回家要钱，再杀回来',s:{E:2,O:1}},
+   {x:'站原地咽口水，但没钱，假装不想吃',s:{W:1,E:-1}},
+   {x:'怂恿小伙伴买，然后蹭一口，谈判专家',s:{O:2,E:2}}]},
+ {emoji:"🐸",t:"你夏天抓的小蝌蚪，养了没两天就没了，你：",opts:[
+   {x:'哭着办了隆重的葬礼，坟头插根冰棍棒',s:{E:2,W:1}},
+   {x:'伤心十分钟，转头又去河边抓一只',s:{W:1,E:-1}},
+   {x:'坚信是被谁害死的，展开破案',s:{E:2,O:1}},
+   {x:'坚信它没死，是脱胎换骨变成青蛙跳走了，从此江湖再见',s:{W:-2,E:-1}}]},
+];
 
-// reveal on scroll
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+/* ====== 16人格（含CP相生相克） ====== */
+const TYPES={
+ BUZZ:{emoji:"🦟",name:"蚊子型",kw:"夏夜限定 · 生死之交",bg:"linear-gradient(135deg,#8e9eab,#5a6d75)",E:85,W:55,S:50,O:55,good:"MEAT",bad:"MINT",
+   memory:"夏天的晚上，你和那只蚊子斗智斗勇一整宿。关灯它就嗡，开灯它就消失，你举着电蚊拍在床上站岗，发誓不弄死它今晚就不睡了。第二天醒来，你身上三个包，而它，不知所踪。",
+   analysis:"你存在感极强，走到哪儿都能让人感觉到「你来了」。安静对你来说是一种酷刑，一旦冷场，你总忍不住要出点动静。有人嫌你闹，但说实话，你不在的局总少了点什么。你也不是真的想烦谁，你只是想确认一下：嘿，你们还在乎我吧？"},
+ SING:{emoji:"🦗",name:"知了型",kw:"蓄谋已久 · 一鸣惊人",bg:"linear-gradient(135deg,#56ab2f,#3bb273)",E:80,W:60,S:45,O:50,good:"MEAT",bad:"FANN",
+   memory:"你知道吗，知了在地下憋了好几年，就为了夏天这几周爬上树拼命叫。小时候你抓过它，它在你手心里突然「知了——」一声，吓得你当场把它扔了三米远。",
+   analysis:"你是典型的不鸣则已一鸣惊人型。平时看着低调，谁都没把你当回事，结果关键时刻你一开口，全场安静。你不爱争平时那些小热闹，你在憋大的。当然偶尔也会用力过猛，叫得太久把人吵到，但那是你攒了很久才敢发出的声音，值得。"},
+ MEAT:{emoji:"🏮",name:"烧烤摊型",kw:"快乐供应商 · 老板加十串",bg:"linear-gradient(135deg,#f7971e,#e85a3c)",E:90,W:75,S:45,O:35,good:"BUZZ",bad:"COOL",
+   memory:"夏天的夜晚最热闹的地方，永远有你一份。你是那种走到哪儿就把气氛带到哪儿的小孩，一群人里只要有你在，连蹲在路边吃串都能吃出过年的感觉。",
+   analysis:"你是行走的快乐供应站，天生的局主。你最见不得冷场，一桌人吃饭你能从头聊到尾，还顺手帮所有人加了菜。大家都爱叫上你，因为有你在就不会无聊。偶尔你也会累，毕竟当一个气氛组组长是体力活，但你享受那种「被需要」的热闹。"},
+ RAIN:{emoji:"⛈️",name:"雷阵雨型",kw:"说哭就哭 · 绝不隔夜",bg:"linear-gradient(135deg,#4a9fd4,#3a6073)",E:80,W:75,S:60,O:50,good:"HEAT",bad:"FANN",
+   memory:"夏天的雷阵雨说来就来，你前一秒还在外面疯跑，下一秒豆大的雨点就砸下来，你边尖叫边往家冲。等跑到家门口，雨停了，太阳出来了，就像什么都没发生过。",
+   analysis:"你的情绪来得快、去得也快，上一秒还委屈得惊天动地，下一秒就被一根冰棍治愈了。朋友有时候跟不上你的节奏，刚准备好好安慰你，你已经没事了。你最大的优点是从不让坏情绪过夜——哭过、骂过、发泄过，然后翻篇，明天又是大晴天。"},
+ HEAT:{emoji:"🌡️",name:"柏油路型",kw:"喜怒形于色 · 体感四十度",bg:"linear-gradient(135deg,#ee9ca7,#e85a3c)",E:70,W:70,S:50,O:55,good:"RAIN",bad:"COOL",
+   memory:"夏天中午的柏油马路，晒得能煎鸡蛋，你非要光脚踩上去试一下，然后「嗷」地一声跳起来，在地上蹦着找阴凉，嘴里还念念有词地后悔。",
+   analysis:"你这个人最大的特点是藏不住，喜怒全写在脸上，堪称行走的弹幕。开心了全世界都知道，不爽了一个表情就出卖了你。你不是脾气大，你只是太诚实，连假笑都做不利索。和你相处特别省心，因为根本不用猜你在想什么——你的脸早就说完了。"},
+ MELO:{emoji:"🍉",name:"西瓜型",kw:"透心凉 · 夏日顶流",bg:"linear-gradient(135deg,#ff5470,#3bb273)",E:60,W:70,S:45,O:45,good:"FLIP",bad:"LATE",
+   memory:"夏天最幸福的瞬间，就是从冰水里捞出那个冰镇大西瓜，「咔」一刀切开，红瓤黑籽，全家眼睛都亮了。你小时候最爱用勺子直接挖中间最甜那口，挖完还要心虚地把勺子周围抹平，假装没人动过。",
+   analysis:"你是那种一出场气氛就上来的人，自带透心凉的清爽属性，谁热谁烦躁，见了你都能降三度。你不用刻意讨好，光是往那儿一坐，大家就觉得舒服。你的快乐很简单很直接——有瓜吃就行，有人一起吃更好。这种藏不住的痛快，是夏天最受欢迎的那一挂。"},
+ FLIP:{emoji:"🩴",name:"人字拖型",kw:"踏遍千山 · 主打随便趿拉",bg:"linear-gradient(135deg,#ff7a5c,#ffc93f)",E:60,W:40,S:25,O:60,good:"MELO",bad:"MINT",
+   memory:"整个夏天你就靠一双人字拖走天下，啪嗒啪嗒响遍小区。跑太快还会甩飞一只，你单脚跳着去捡，捡回来拍拍灰接着穿，从不嫌弃。",
+   analysis:"你主打一个松弛随性，人生信条是「差不多得了」。别人为各种规矩较劲，你趿拉着拖鞋就把事儿办了。你不是不上进，你只是觉得没必要把自己绷那么紧。能躺着绝不坐着，能简单绝不复杂——你早就活明白了，夏天嘛，舒服最重要。"},
+ CARD:{emoji:"🃏",name:"干脆面型",kw:"重点在卡 · 面是附赠的",bg:"linear-gradient(135deg,#f2994a,#bb6b1e)",E:55,W:35,S:40,O:70,good:"COOL",bad:"BURN",
+   memory:"你买干脆面从来不是为了吃面，是为了里面那张卡。撕开包装第一件事是掏卡，然后把面捏得粉碎、随便塞两口，甚至直接喂了蚂蚁。集齐一套水浒卡，是你那个夏天最大的事业。",
+   analysis:"你是个目标感极强的人，认准了想要的东西，旁边的一切都是附赠品。别人觉得你有点「功利」，其实你只是分得清主次——该专注的时候绝不分心。你为了搞定一件事能投入到吓人的程度，虽然偶尔会忽略掉过程里的乐趣（比如那包被你浪费的面）。"},
+ LICK:{emoji:"🍦",name:"冰棍型",kw:"快乐限时 · 入口即化",bg:"linear-gradient(135deg,#ff9a8b,#ff6a88)",E:60,W:65,S:30,O:45,good:"RAIN",bad:"FANN",
+   memory:"你小时候吃冰棍是有仪式的：先舔掉最上面那层糖霜，再小口小口啃，生怕吃太快就没了。结果越舍不得化得越快，最后举着一根木棍站在原地，看着地上那摊水陷入沉思。",
+   analysis:"你的快乐保质期很短，但浓度极高。别人说你三分钟热度，其实你只是不耐烦慢慢来——喜欢的东西就要立刻、马上、全部拥有。坏处是热乎劲儿过得也快，前一秒还热血沸腾，后一秒「算了没意思」。但说真的，能把每件小事都当回事去高兴的人，本来就不多了。"},
+ SNOW:{emoji:"📺",name:"雪花屏型",kw:"拍一下就好 · 玄学维修工",bg:"linear-gradient(135deg,#bdc3c7,#8e9eab)",E:45,W:30,S:35,O:50,good:"FANN",bad:"RAIN",
+   memory:"电视一花屏，你的第一反应不是修，是抡圆了给它后脑勺一巴掌。神奇的是，它还真就好了。从此你坚信：这世上百分之九十的问题，都能靠「拍一下」和「拔了再插上」解决。",
+   analysis:"你是天生的乐天派，遇事不慌，主打一个「问题不大，拍拍就过去了」。朋友焦虑到原地爆炸的时候，你在旁边淡淡来一句「应该没事吧」，还真就经常被你说中。你不是没心没肺，你只是早就悟了：很多事认真纠结也没用，不如先拍一下试试。"},
+ MINT:{emoji:"🌿",name:"花露水型",kw:"随身携带 · 操心一整夏",bg:"linear-gradient(135deg,#a8e063,#56ab2f)",E:40,W:70,S:65,O:35,good:"BURN",bad:"BUZZ",
+   memory:"夏天你身上永远有一股花露水味儿。被蚊子咬了画个十字，出门前被妈妈喷一身，你还会主动提醒小伙伴「你也喷点，不然待会儿被咬」。一瓶花露水，你能操全院孩子的心。",
+   analysis:"你是朋友圈里那个永远在操心别人的人：「带伞了吗」「多喝水」「到家说一声」。你总能提前想到别人没想到的事，是那种让人特别安心的存在。有时候你操心得自己都累，但看到大家因为你的提醒少踩了坑，你又觉得值了。你不是爱管闲事，你只是习惯了把别人放心上。"},
+ BURN:{emoji:"🪰",name:"蚊香型",kw:"燃烧自己 · 照亮别人睡眠",bg:"linear-gradient(135deg,#c79081,#8e6e63)",E:30,W:80,S:55,O:15,good:"MINT",bad:"CARD",
+   memory:"夏天的夜里，床底下那盘蚊香静静地烧着，一圈一圈，把自己烧成灰，只为了让一屋子人睡个安稳觉。早上起来，它已经烧没了，谁也不会记得它。",
+   analysis:"你是那种默默付出、习惯把「没关系」挂在嘴边的人。别人的需求你总放在自己前面，委屈了也不太说，怕给人添麻烦。大家都觉得你特别好相处，但很少有人问过你累不累。其实啊，最该被照顾的，常常就是你这种总在照顾别人的人。偶尔也允许自己当一回被照顾的那个，好吗？"},
+ LATE:{emoji:"📒",name:"暑假作业型",kw:"赶due之王 · 开学前一夜",bg:"linear-gradient(135deg,#7474bf,#348ac7)",E:50,W:45,S:8,O:50,good:"FLIP",bad:"MELO",
+   memory:"七月初，你信誓旦旦列好了暑假计划表，每天写两页，轻松搞定。这张计划表的寿命是三天。然后它就和你的作业本一起，在抽屉里安详地睡了五十多天，直到开学前一夜，被你含泪唤醒。",
+   analysis:"你的人生信条是「还来得及」。不是你不想早点开始，而是「开始」这件事被你想得太隆重了，隆重到迟迟不敢动手。但你也有个隐藏天赋：一旦真到了悬崖边上，你的爆发力能吓自己一跳。截止日期才是你真正的生产力来源，平时？平时是用来酝酿的。"},
+ COOL:{emoji:"❄️",name:"空调型",kw:"续命神器 · 哪凉快哪待",bg:"linear-gradient(135deg,#7fc7e8,#4a9fd4)",E:30,W:25,S:25,O:75,good:"CARD",bad:"MEAT",
+   memory:"整个夏天，你和空调的感情最深。哪个房间开空调你就出现在哪个房间，被赶出去写作业你也要赖到最后一秒，边走边回头看那台空调，眼神里全是不舍。",
+   analysis:"你的人生哲学是「哪凉快哪待着」，而且毫不羞愧。逃避虽然有时候被说不好，但你深谙其道：打不过就撤，撤了还挺舒服。你不是没能力面对，你只是把力气留给真正值得的事——其余的麻烦？能躲就躲，先让自己舒服了再说。这种通透，很多人学不来。"},
+ FANN:{emoji:"🪭",name:"蒲扇型",kw:"提前退休 · 养生局常驻",bg:"linear-gradient(135deg,#c9d6ff,#8e9eab)",E:25,W:50,S:30,O:45,good:"MATT",bad:"RAIN",
+   memory:"你摇蒲扇的样子，活像个退休老干部。一把大蒲扇摇得慢悠悠，不慌不忙，身边的小孩都热得上蹿下跳，只有你气定神闲，仿佛掌握了对抗酷暑的终极智慧。",
+   analysis:"你年纪轻轻一身老灵魂，主打一个气定神闲。别人在那儿急得团团转，你慢悠悠地「急啥，天塌下来当被盖」。你的节奏永远比周围慢半拍，但奇怪的是，你慢悠悠地反而把事儿都办成了。你早就参透了：有些事急也没用，不如摇着扇子，等风来。"},
+ MATT:{emoji:"🟦",name:"凉席型",kw:"天然空调 · 自带格子滤镜",bg:"linear-gradient(135deg,#83a4d4,#5a7d9a)",E:25,W:50,S:20,O:55,good:"FANN",bad:"BUZZ",
+   memory:"午睡睡在凉席上，醒来满脸满胳膊全是席子压的格子印，像被盖了一身邮戳。你顶着这张「格子脸」去照镜子，不但不慌，还会用手指把那些印子按一按、数一数，研究它们多久能消下去，顺便把午觉延长了二十分钟。",
+   analysis:"你这人主打一个情绪稳定、自带空调，再燥的场子有你在都能凉下来。别人急得跳脚，你躺得四仰八叉：「急啥，凉快要紧。」你不是慢，你是懒得跟生活较劲——能舒服解决的事，何必搞得满头大汗。跟你待一块儿最大的好处就是：从来不用陪你紧张，你自己都不紧张。"},
+};
 
-// collapsible experience cards
-function setCardHeight(card) {
-  const detail = card.querySelector('.exp-detail');
-  if (card.classList.contains('open')) {
-    detail.style.maxHeight = detail.scrollHeight + 'px';
-  } else {
-    detail.style.maxHeight = '0px';
+/* CP 关系文案 */
+const CP_GOOD_TIP={
+ MEAT:"俩热闹精，凑一起能把整条街掀翻",FLIP:"一个松一个凉，躺平界的神仙搭子",
+ RAIN:"情绪都来得快，吵完三秒和好",HEAT:"俩急性子，谁也别嫌谁",COOL:"一个负责热闹一个负责凉，绝配",
+ CARD:"目标感拉满，搞事业的好队友",FANN:"慢悠悠二人组，时间在你俩这儿是停的",
+ MINT:"一个操心一个省心，互补",BURN:"俩暖宝宝，谁也舍不得让谁累着",MATT:"两块凉席，躺一起谁都不想动",
+ BUZZ:"一个吵一个更吵，热闹翻倍",MELO:"一甜一爽，夏天的最佳拍档"};
+const CP_BAD_TIP={
+ MINT:"一个咬人一个防咬，天生死对头",COOL:"一个想嗨一个想躲，约不到一块",
+ FANN:"一个急一个慢，能把对方逼疯",CARD:"一个掏心一个掏卡，频道对不上",
+ LATE:"一个利落一个拖，看着就着急",BURN:"一个图自己一个顾别人，三观打架",
+ BUZZ:"一个想静一个偏吵，绝缘体","MELO":"一个甜一个拖，等到瓜都不甜了",
+ RAIN:"一个想稳一个爱炸，受不了",MEAT:"一个想躲一个想嗨，画风冲突"};
+
+/* ====== 状态 ====== */
+const NORM={E:{m:5.5,sd:4.40},W:{m:2.27,sd:2.86},S:{m:0.23,sd:3.23},O:{m:4.96,sd:3.17}};
+let cur=0; const raw={E:0,W:0,S:0,O:0}; let myKey=null; let myUser=null;
+let friendKey=null;
+
+/* 读取URL里朋友的人格（匹配模式） */
+(function initFriend(){
+  const p=new URLSearchParams(location.search);
+  const w=p.get('with');
+  if(w && TYPES[w]){
+    friendKey=w;
+    const t=TYPES[w];
+    document.getElementById('matchBanner').style.display='block';
+    document.getElementById('matchBanner').innerHTML=
+      '你的朋友是 '+t.emoji+' <b>'+t.name+'</b>（'+w+'）<br>测完就能看你俩的「夏天匹配度」啦 ↓';
   }
-}
-document.querySelectorAll('.exp-card').forEach(card => {
-  const summary = card.querySelector('.exp-summary');
-  summary.addEventListener('click', () => {
-    card.classList.toggle('open');
-    setCardHeight(card);
-  });
-  if (card.classList.contains('open')) setTimeout(() => setCardHeight(card), 100);
-});
+})();
 
-// count-up stats
-function animateCount(el) {
-  const target = +el.dataset.target;
-  const suffix = el.dataset.suffix || '';
-  const dur = 1200; const start = performance.now();
-  function tick(now) {
-    const p = Math.min((now - start) / dur, 1);
-    const eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(target * eased) + suffix;
-    if (p < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
+function clamp(v){return Math.max(2,Math.min(98,v));}
+function startQuiz(){
+  document.getElementById('cover').classList.remove('active');
+  document.getElementById('quiz').classList.add('active');
+  document.getElementById('bubbles').style.display='none';
+  window.scrollTo(0,0); render();
 }
-const statObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); statObs.unobserve(e.target); } });
-}, { threshold: 0.5 });
-document.querySelectorAll('.stat-big').forEach(el => statObs.observe(el));
+function render(){
+  const q=QS[cur];
+  document.getElementById('qnum').textContent='Q'+(cur+1);
+  document.getElementById('qemoji').textContent=q.emoji;
+  document.getElementById('qtext').textContent=q.t;
+  document.getElementById('pfill').style.width=(cur/QS.length*100)+'%';
+  document.getElementById('ptxt').textContent='第 '+(cur+1)+' / '+QS.length+' 题';
+  const L=['A','B','C','D'],box=document.getElementById('opts');box.innerHTML='';
+  q.opts.forEach((o,i)=>{const d=document.createElement('div');d.className='opt';
+    d.innerHTML='<span class="lab">'+L[i]+'</span><span>'+o.x+'</span>';d.onclick=()=>choose(i);box.appendChild(d);});
+  window.scrollTo(0,0);
+}
+function choose(i){
+  const s=QS[cur].opts[i].s;for(const k in s)raw[k]+=s[k];
+  document.querySelectorAll('.opt')[i].classList.add('sel');
+  setTimeout(()=>{cur++;cur<QS.length?render():finish();},230);
+}
+function finish(){
+  document.getElementById('quiz').classList.remove('active');
+  document.getElementById('calc').classList.add('active');window.scrollTo(0,0);
+  const msgs=['正在熔断你的夏日数据…','匹配 16 种夏日人格…','给你的暑性盖个章…'];let mi=0;
+  const tm=setInterval(()=>{mi++;if(mi<msgs.length)document.getElementById('calctxt').textContent=msgs[mi];},650);
+  myUser={E:clamp(50+(raw.E-NORM.E.m)/NORM.E.sd*22),W:clamp(50+(raw.W-NORM.W.m)/NORM.W.sd*22),
+    S:clamp(50+(raw.S-NORM.S.m)/NORM.S.sd*22),O:clamp(50+(raw.O-NORM.O.m)/NORM.O.sd*22)};
+  let best=null,bd=1e9;
+  for(const key in TYPES){const t=TYPES[key];
+    const d=(t.E-myUser.E)**2+(t.W-myUser.W)**2+(t.S-myUser.S)**2+(t.O-myUser.O)**2;
+    if(d<bd){bd=d;best=key;}}
+  myKey=best;
+  setTimeout(()=>{clearInterval(tm);showResult();},2000);
+}
+function showResult(){
+  const t=TYPES[myKey];
+  document.getElementById('calc').classList.remove('active');
+  document.getElementById('result').classList.add('active');
+  // 匹配度（如果是朋友邀请来的）
+  if(friendKey){renderMatch();}
+  document.getElementById('cardtop').style.background=t.bg;
+  document.getElementById('rEmoji').textContent=t.emoji;
+  document.getElementById('rEn').textContent=myKey;
+  document.getElementById('rName').textContent=t.name;
+  document.getElementById('rKw').textContent=t.kw;
+  document.getElementById('rMemory').textContent=t.memory;
+  document.getElementById('rAnalysis').textContent=t.analysis;
+  // CP
+  const g=TYPES[t.good],b=TYPES[t.bad];
+  document.getElementById('cpGoodE').textContent=g.emoji;document.getElementById('cpGoodN').textContent=g.name;
+  document.getElementById('cpGoodT').textContent=CP_GOOD_TIP[t.good]||'夏日绝配';
+  document.getElementById('cpBadE').textContent=b.emoji;document.getElementById('cpBadN').textContent=b.name;
+  document.getElementById('cpBadT').textContent=CP_BAD_TIP[t.bad]||'气场不合';
+  // 二维码
+  makeQR();
+  window.scrollTo(0,0);
+  setTimeout(()=>{
+    document.getElementById('sE').style.width=myUser.E+'%';document.getElementById('sW').style.width=myUser.W+'%';
+    document.getElementById('sS').style.width=myUser.S+'%';document.getElementById('sO').style.width=myUser.O+'%';
+    document.getElementById('vE').textContent=Math.round(myUser.E);document.getElementById('vW').textContent=Math.round(myUser.W);
+    document.getElementById('vS').textContent=Math.round(myUser.S);document.getElementById('vO').textContent=Math.round(myUser.O);
+  },200);
+}
+function renderMatch(){
+  const me=TYPES[myKey],fr=TYPES[friendKey];
+  // 四维距离 → 匹配度
+  const d=Math.sqrt((me.E-fr.E)**2+(me.W-fr.W)**2+(me.S-fr.S)**2+(me.O-fr.O)**2);
+  let pct=Math.round(Math.max(40,Math.min(99,100-d/1.7)));
+  if(me.good===friendKey)pct=Math.max(pct,90);
+  if(me.bad===friendKey)pct=Math.min(pct,55);
+  let comment;
+  if(me.bad===friendKey)comment='你俩是天生冤家，但冤家路窄，吵吵闹闹也是一种缘分 🤺';
+  else if(me.good===friendKey)comment='天生一对夏日搭子！这个夏天必须一起过 🎏';
+  else if(pct>=85)comment='超级合拍，简直是一个西瓜里长出来的两瓣 🍉';
+  else if(pct>=70)comment='挺搭的，偶尔互相嫌弃，但谁也离不开谁 😎';
+  else comment='不太一样，但夏天就是要五颜六色才好玩嘛 🌈';
+  const box=document.getElementById('matchBox');
+  box.innerHTML='<div class="match-result"><div class="match-vs"><span class="who">'+fr.emoji+'</span><span class="x">×</span><span class="who">'+me.emoji+'</span></div>'+
+    '<div class="match-names">'+fr.name+' &nbsp;×&nbsp; '+me.name+'</div>'+
+    '<div style="font-size:14px;color:var(--ink-soft);margin-bottom:4px;">你们的夏天匹配度</div>'+
+    '<div class="match-pct">'+pct+'%</div>'+
+    '<div class="match-comment">'+comment+'</div></div>';
+}
+function shareURL(){
+  const base=location.origin+location.pathname;
+  return base+'?with='+myKey;
+}
+function makeQR(){
+  const el=document.getElementById('qrcode');el.innerHTML='';
+  try{new QRCode(el,{text:shareURL(),width:130,height:130,colorDark:'#2a3d45',colorLight:'#ffffff'});}
+  catch(e){el.innerHTML='<div style="font-size:12px;color:#999;padding:20px;">二维码生成失败，可用下方按钮复制链接</div>';}
+}
+function copyLink(){
+  const url=shareURL();
+  navigator.clipboard.writeText(url).then(()=>alert('邀请链接已复制！\n发给朋友，他测完就能看你俩匹配度～\n\n'+url))
+  .catch(()=>prompt('复制下面的链接发给朋友：',url));
+}
+function restart(){location.href=location.origin+location.pathname;}
+function saveShot(){
+  const card=document.getElementById('card');const btns=document.querySelector('.result-btns');const inv=document.querySelector('.invite');
+  btns.style.visibility='hidden';
+  html2canvas(card,{backgroundColor:'#fffaf0',scale:2,useCORS:true}).then(cv=>{
+    btns.style.visibility='visible';
+    const a=document.createElement('a');a.download='我的暑性测试结果.png';a.href=cv.toDataURL('image/png');a.click();
+  }).catch(()=>{btns.style.visibility='visible';alert('截图失败，手动截屏也可以哦～');});
+}
+
+/* ====== 封面泡泡 ====== */
+(function bubbleLoop(){
+  const layer=document.getElementById('bubbles');
+  function spawn(){
+    if(!document.getElementById('cover').classList.contains('active'))return;
+    const b=document.createElement('div');b.className='bubble';
+    const size=28+Math.random()*44;
+    b.style.width=size+'px';b.style.height=size+'px';
+    b.style.left=(Math.random()*88)+'%';
+    b.style.setProperty('--drift',(Math.random()*80-40)+'px');
+    b.style.animationDuration=(7+Math.random()*7)+'s';
+    const pop=(e)=>{e.preventDefault();e.stopPropagation();b.classList.add('pop');setTimeout(()=>b.remove(),350);};
+    b.addEventListener('pointerdown',pop);
+    b.addEventListener('click',pop);
+    layer.appendChild(b);
+    setTimeout(()=>{if(b.parentNode)b.remove();},15000);
+  }
+  for(let i=0;i<6;i++)setTimeout(spawn,i*400);
+  setInterval(spawn,1100);
+})();
 </script>
+
+<!-- 51.LA 网站统计（上线到 https 网站后自动生效；本地预览不统计属正常） -->
+<script charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"
+  onload="try{LA.init({id:'3Q8bADA97MJV3EOw',ck:'3Q8bADA97MJV3EOw'})}catch(e){}"
+  onerror="console.log('统计脚本未加载（本地预览正常现象）')"></script>
 </body>
 </html>
