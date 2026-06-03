@@ -231,6 +231,11 @@ body{
           </div>
           <div class="score-note">数值由你的作答实时生成 · 换个答案，你可能就是另一种夏天</div>
         </div>
+        <div id="shotQR" style="display:none;margin-top:20px;padding:18px;background:#fff7ef;border-radius:16px;border:2px dashed #f0c9a8;text-align:center;">
+          <div style="font-size:13px;color:var(--coral-deep);font-weight:600;margin-bottom:10px;">扫码也来测，看看我俩的夏天匹配度 🍉</div>
+          <img id="shotQRImg" style="width:120px;height:120px;display:inline-block;" alt="二维码"/>
+          <div style="font-size:11px;color:var(--ink-soft);margin-top:8px;">暑性测试 · 21世纪第一个夏天</div>
+        </div>
         <div class="invite">
           <div class="invite-h">喊朋友来测，看你俩多合拍</div>
           <div class="invite-sub">把你的专属二维码 / 链接发给朋友<br>他测完，就能算出你俩的「夏天匹配度」</div>
@@ -268,7 +273,7 @@ body{
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
 <script>
 /* ====== 题库 ====== */
 const QS=[
@@ -535,18 +540,15 @@ function shareURL(){
 }
 function makeQR(){
   const el=document.getElementById('qrcode');el.innerHTML='';
-  try{
-    new QRCode(el,{text:shareURL(),width:130,height:130,colorDark:'#2a3d45',colorLight:'#ffffff'});
-    setTimeout(()=>{
-      const cvs=el.querySelector('canvas');
-      if(cvs){
-        const img=new Image();
-        img.src=cvs.toDataURL('image/png');
-        img.style.width='130px';img.style.height='130px';img.style.display='block';
-        el.innerHTML='';el.appendChild(img);
-      }
-    },120);
-  }catch(e){el.innerHTML='<div style="font-size:12px;color:#999;padding:20px;">二维码生成失败，可用下方按钮复制链接</div>';}
+  QRCode.toDataURL(shareURL(),{width:140,margin:1,color:{dark:'#2a3d45',light:'#ffffff'}},function(err,url){
+    if(err||!url){el.innerHTML='<div style="font-size:12px;color:#999;padding:20px;">二维码生成失败，可用下方按钮复制链接</div>';return;}
+    const img=new Image();
+    img.src=url;img.style.width='130px';img.style.height='130px';img.style.display='block';
+    img.setAttribute('alt','邀请二维码');
+    el.appendChild(img);
+    // 截图专用二维码也填上同一张图
+    const sImg=document.getElementById('shotQRImg');if(sImg)sImg.src=url;
+  });
 }
 function copyLink(){
   const url=shareURL();
@@ -560,9 +562,11 @@ function saveShot(){
   const invite=document.querySelector('.invite');
   const ending=document.querySelector('.ending');
   const foot=document.querySelector('.foot');
-  // 截图时隐藏二维码邀请/结语/按钮，只保留 人格+记忆+分析+关系+维度
+  const shotQR=document.getElementById('shotQR');
+  // 截图：显示专用二维码条，隐藏可操作的大邀请区/结语/按钮
   btns.style.display='none';invite.style.display='none';ending.style.display='none';if(foot)foot.style.display='none';
-  const restore=()=>{btns.style.display='';invite.style.display='';ending.style.display='';if(foot)foot.style.display='';};
+  shotQR.style.display='block';
+  const restore=()=>{btns.style.display='';invite.style.display='';ending.style.display='';if(foot)foot.style.display='';shotQR.style.display='none';};
   setTimeout(()=>{
     html2canvas(card,{backgroundColor:'#fffaf0',scale:2,useCORS:true,allowTaint:false,imageTimeout:0,logging:false}).then(cv=>{
       restore();
@@ -571,7 +575,7 @@ function saveShot(){
       document.body.style.overflow='hidden';
       window.scrollTo(0,0);
     }).catch(()=>{restore();alert('生成图片失败，直接用手机截屏也可以哦～');});
-  },60);
+  },120);
 }
 function closeSave(){
   document.getElementById('saveOverlay').style.display='none';
