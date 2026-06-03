@@ -108,15 +108,15 @@ body{
 .scores-h{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:16px;text-align:center;}
 .score-row{display:flex;align-items:center;gap:10px;margin-bottom:13px;font-size:13.5px;}
 .score-row .nm{width:64px;flex-shrink:0;color:var(--ink-soft);}
-.score-track{flex:1;height:14px;background:#f0e6cf;border-radius:10px;overflow:hidden;}
-.score-fill{height:100%;border-radius:10px;width:0;transition:width 1s ease;}
+.score-track{width:100%;height:15px;background:#f0e6cf;border-radius:10px;overflow:hidden;}
+.score-fill{height:100%;border-radius:10px;width:0;transition:width 1s cubic-bezier(.22,1,.36,1);}
 .score-val{width:30px;text-align:right;font-family:"YouYuan","幼圆",sans-serif;font-weight:700;color:var(--ink);flex-shrink:0;}
 .score-note{font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:6px;opacity:.78;}
 .score-row{align-items:flex-start;}
 .score-row .nm{width:auto;min-width:88px;}
 .score-row .nm .nm-main{font-size:14px;color:var(--ink);font-weight:600;}
 .score-row .nm .nm-sub{font-size:11px;color:var(--ink-soft);display:block;margin-top:1px;line-height:1.3;}
-.score-row .mid{flex:1;display:flex;flex-direction:column;gap:5px;padding-top:3px;}
+.score-row .mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:4px;}
 .invite{margin-top:28px;background:linear-gradient(135deg,#fff0e8,#ffe9d6);border-radius:18px;padding:22px 20px;text-align:center;border:2px solid var(--coral);}
 .invite-h{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:17px;color:var(--coral-deep);margin-bottom:6px;}
 .invite-sub{font-size:13px;color:var(--ink-soft);margin-bottom:16px;line-height:1.6;}
@@ -516,8 +516,18 @@ function shareURL(){
 }
 function makeQR(){
   const el=document.getElementById('qrcode');el.innerHTML='';
-  try{new QRCode(el,{text:shareURL(),width:130,height:130,colorDark:'#2a3d45',colorLight:'#ffffff'});}
-  catch(e){el.innerHTML='<div style="font-size:12px;color:#999;padding:20px;">二维码生成失败，可用下方按钮复制链接</div>';}
+  try{
+    new QRCode(el,{text:shareURL(),width:130,height:130,colorDark:'#2a3d45',colorLight:'#ffffff'});
+    setTimeout(()=>{
+      const cvs=el.querySelector('canvas');
+      if(cvs){
+        const img=new Image();
+        img.src=cvs.toDataURL('image/png');
+        img.style.width='130px';img.style.height='130px';img.style.display='block';
+        el.innerHTML='';el.appendChild(img);
+      }
+    },120);
+  }catch(e){el.innerHTML='<div style="font-size:12px;color:#999;padding:20px;">二维码生成失败，可用下方按钮复制链接</div>';}
 }
 function copyLink(){
   const url=shareURL();
@@ -529,7 +539,7 @@ function saveShot(){
   const card=document.getElementById('card');
   const btns=document.querySelector('.result-btns');
   btns.style.visibility='hidden';
-  html2canvas(card,{backgroundColor:'#fffaf0',scale:2,useCORS:true}).then(cv=>{
+  html2canvas(card,{backgroundColor:'#fffaf0',scale:2,useCORS:true,allowTaint:false,imageTimeout:0,logging:false}).then(cv=>{
     btns.style.visibility='visible';
     document.getElementById('saveImg').src=cv.toDataURL('image/png');
     document.getElementById('saveOverlay').style.display='block';
