@@ -44,9 +44,11 @@ body{
 @keyframes rise{0%{transform:translateY(0) translateX(0);}100%{transform:translateY(-115vh) translateX(var(--drift));}}
 .bubble.pop{animation:popout .35s ease forwards;}
 @keyframes popout{0%{transform:scale(1);opacity:.9;}100%{transform:scale(1.8);opacity:0;}}
-.tag-top{font-size:14px;color:var(--sky-deep);letter-spacing:3px;margin-bottom:18px;font-weight:600;}
-.title-big{font-size:74px;line-height:1;color:var(--coral);text-shadow:4px 4px 0 #fff,7px 7px 0 var(--yellow);margin-bottom:8px;}
-.title-sub{font-size:22px;color:var(--coral-deep);letter-spacing:2px;margin-bottom:34px;}
+.pop-icon{position:fixed;z-index:6;pointer-events:none;font-size:30px;animation:popicon .7s ease-out forwards;}
+@keyframes popicon{0%{transform:scale(.3) translateY(0);opacity:0;}30%{transform:scale(1.3) translateY(-6px);opacity:1;}100%{transform:scale(1) translateY(-34px);opacity:0;}}
+.tag-top{font-size:14px;color:var(--sky-deep);letter-spacing:3px;margin-bottom:26px;font-weight:600;}
+.title-big{font-size:74px;line-height:1.12;color:var(--coral);text-shadow:4px 4px 0 #fff,7px 7px 0 var(--yellow);margin-bottom:16px;}
+.title-sub{font-size:22px;color:var(--coral-deep);letter-spacing:2px;margin-bottom:38px;}
 .cover-poem{
   background:rgba(255,255,255,.72);backdrop-filter:blur(5px);border:2px dashed var(--coral);
   border-radius:20px;padding:28px 24px;font-size:15.5px;line-height:2.05;color:var(--ink-soft);text-align:center;margin-bottom:30px;
@@ -72,8 +74,8 @@ body{
 .opt{background:#fff;border:2.5px solid transparent;border-radius:16px;padding:16px 18px;margin-bottom:13px;font-size:15.5px;line-height:1.5;cursor:pointer;box-shadow:0 4px 0 #e9ddc4;transition:transform .1s,border-color .15s,box-shadow .1s;display:flex;align-items:center;gap:12px;}
 .opt:active{transform:translateY(3px);box-shadow:0 1px 0 #e9ddc4;}
 .opt .lab{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--sand);font-weight:700;color:var(--coral-deep);display:flex;align-items:center;justify-content:center;font-size:15px;}
-.opt.sel{border-color:var(--coral);box-shadow:0 4px 0 var(--coral-deep);}
-.opt.sel .lab{background:var(--coral);color:#fff;}
+.opt.sel{border-color:#5dca8f;background:#eafaf1;box-shadow:0 4px 0 #b7e6cc;}
+.opt.sel .lab{background:#5dca8f;color:#fff;font-size:17px;}
 
 /* ========== 计算 ========== */
 #calc{text-align:center;padding-top:140px;}
@@ -110,6 +112,11 @@ body{
 .score-fill{height:100%;border-radius:10px;width:0;transition:width 1s ease;}
 .score-val{width:30px;text-align:right;font-family:"YouYuan","幼圆",sans-serif;font-weight:700;color:var(--ink);flex-shrink:0;}
 .score-note{font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:6px;opacity:.78;}
+.score-row{align-items:flex-start;}
+.score-row .nm{width:auto;min-width:88px;}
+.score-row .nm .nm-main{font-size:14px;color:var(--ink);font-weight:600;}
+.score-row .nm .nm-sub{font-size:11px;color:var(--ink-soft);display:block;margin-top:1px;line-height:1.3;}
+.score-row .mid{flex:1;display:flex;flex-direction:column;gap:5px;padding-top:3px;}
 .invite{margin-top:28px;background:linear-gradient(135deg,#fff0e8,#ffe9d6);border-radius:18px;padding:22px 20px;text-align:center;border:2px solid var(--coral);}
 .invite-h{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:17px;color:var(--coral-deep);margin-bottom:6px;}
 .invite-sub{font-size:13px;color:var(--ink-soft);margin-bottom:16px;line-height:1.6;}
@@ -145,9 +152,8 @@ body{
     <div id="matchBanner" class="match-banner" style="display:none;"></div>
     <div class="cover-poem">
       有人说，<b>2026年是21世纪的第一个夏天</b>。<br>
-      按这个算法，我们前面那些夏天，<br>都只是春天的预告片。<br>
-      真正的盛夏，现在才开始。<br><br>
-      在你大汗淋漓地奔赴这个夏天之前，<br>先回答 12 个问题——<br>
+      一晃眼，小时候那些黏糊糊、亮晶晶的夏天，<br>已经是很久以前的事了。<br><br>
+      在你大汗淋漓地奔赴这个夏天之前，<br>先回望一下，回答 12 个问题——<br>
       看看小时候那个一身汗、满手冰棍水的你，<br>
       <span class="hl">骨子里藏着哪一种夏天的脾气。</span>
     </div>
@@ -160,6 +166,9 @@ body{
   <section id="quiz" class="scene">
     <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
     <div class="progress-txt" id="ptxt">第 1 / 12 题</div>
+    <div id="backBtn" style="display:none;margin-top:14px;">
+      <span onclick="goBack()" style="cursor:pointer;font-size:14px;color:var(--ink-soft);display:inline-flex;align-items:center;gap:4px;">‹ 返回上一题</span>
+    </div>
     <div class="q-num fancy" id="qnum">Q1</div>
     <div class="q-emoji" id="qemoji">🌀</div>
     <div class="q-text" id="qtext"></div>
@@ -184,7 +193,7 @@ body{
       </div>
       <div class="card-body">
         <div class="sec"><div class="sec-h">那年夏天的你</div><div class="sec-p" id="rMemory"></div></div>
-        <div class="sec"><div class="sec-h">你的暑性人格</div><div class="sec-p" id="rAnalysis"></div></div>
+        <div class="sec"><div class="sec-h">你的暑性</div><div class="sec-p" id="rAnalysis"></div></div>
         <div class="sec">
           <div class="sec-h">夏日关系学</div>
           <div class="cp-wrap">
@@ -203,15 +212,15 @@ body{
           </div>
         </div>
         <div class="scores">
-          <div class="scores-h">📊 你的暑性数据</div>
-          <div class="score-row"><span class="nm">🔥 能量值</span><div class="score-track"><div class="score-fill" id="sE" style="background:linear-gradient(90deg,#ff6b4a,#ffc93f)"></div></div><span class="score-val" id="vE">0</span></div>
-          <div class="score-row"><span class="nm">💧 温度值</span><div class="score-track"><div class="score-fill" id="sW" style="background:linear-gradient(90deg,#3a90c9,#7fc7e8)"></div></div><span class="score-val" id="vW">0</span></div>
-          <div class="score-row"><span class="nm">⏱ 节奏感</span><div class="score-track"><div class="score-fill" id="sS" style="background:linear-gradient(90deg,#3bb273,#a8e063)"></div></div><span class="score-val" id="vS">0</span></div>
-          <div class="score-row"><span class="nm">🧭 自我度</span><div class="score-track"><div class="score-fill" id="sO" style="background:linear-gradient(90deg,#ff4d6d,#ff9a8b)"></div></div><span class="score-val" id="vO">0</span></div>
+          <div class="scores-h">你的暑性维度</div>
+          <div class="score-row"><span class="nm"><span class="nm-main">活力</span><span class="nm-sub">安静 ↔ 外放</span></span><div class="mid"><div class="score-track"><div class="score-fill" id="sE" style="background:linear-gradient(90deg,#ff8a5c,#ffc93f)"></div></div></div><span class="score-val" id="vE">0</span></div>
+          <div class="score-row"><span class="nm"><span class="nm-main">共情</span><span class="nm-sub">钝感 ↔ 细腻</span></span><div class="mid"><div class="score-track"><div class="score-fill" id="sW" style="background:linear-gradient(90deg,#56b8e0,#9fe1cb)"></div></div></div><span class="score-val" id="vW">0</span></div>
+          <div class="score-row"><span class="nm"><span class="nm-main">行动力</span><span class="nm-sub">随性 ↔ 雷厉</span></span><div class="mid"><div class="score-track"><div class="score-fill" id="sS" style="background:linear-gradient(90deg,#5dca8f,#a8e063)"></div></div></div><span class="score-val" id="vS">0</span></div>
+          <div class="score-row"><span class="nm"><span class="nm-main">主见</span><span class="nm-sub">随和 ↔ 有主张</span></span><div class="mid"><div class="score-track"><div class="score-fill" id="sO" style="background:linear-gradient(90deg,#b58ce0,#e0a8d8)"></div></div></div><span class="score-val" id="vO">0</span></div>
           <div class="score-note">数值由你的作答实时生成 · 换个答案，你可能就是另一种夏天</div>
         </div>
         <div class="invite">
-          <div class="invite-h">📲 喊朋友来测，看你俩多合拍</div>
+          <div class="invite-h">喊朋友来测，看你俩多合拍</div>
           <div class="invite-sub">把你的专属二维码 / 链接发给朋友<br>他测完，就能算出你俩的「夏天匹配度」</div>
           <div id="qrcode"></div>
           <div class="invite-btns">
@@ -227,12 +236,22 @@ body{
         </div>
         <div class="result-btns">
           <button class="btn ghost" onclick="restart()">再测一次</button>
-          <button class="btn" onclick="saveShot()">保存结果</button>
+          <button class="btn" onclick="saveShot()">生成图片</button>
         </div>
         <div class="foot">暑性测试 · 21世纪第一个夏天限定<br>本测试仅供娱乐，别拿它当人生判决书 🌿</div>
       </div>
     </div>
   </section>
+
+  <!-- 长按保存浮层 -->
+  <div id="saveOverlay" style="display:none;position:fixed;inset:0;z-index:99;background:rgba(20,28,32,.88);overflow-y:auto;padding:24px 18px;">
+    <div style="max-width:480px;margin:0 auto;text-align:center;">
+      <div style="color:#fff;font-size:16px;margin-bottom:6px;font-weight:600;">长按下方图片 → 保存到相册</div>
+      <div style="color:#cdd6da;font-size:13px;margin-bottom:18px;">保存后就能发朋友圈 / 小红书啦 📷</div>
+      <img id="saveImg" style="width:100%;border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,.4);" alt="长按保存我的暑性结果"/>
+      <div style="margin-top:20px;"><button class="btn ghost" onclick="closeSave()">关闭</button></div>
+    </div>
+  </div>
 
 </div>
 
@@ -372,6 +391,7 @@ const CP_BAD_TIP={
 /* ====== 状态 ====== */
 const NORM={E:{m:5.5,sd:4.40},W:{m:2.27,sd:2.86},S:{m:0.23,sd:3.23},O:{m:4.96,sd:3.17}};
 let cur=0; const raw={E:0,W:0,S:0,O:0}; let myKey=null; let myUser=null;
+const history=[];
 let friendKey=null;
 
 /* 读取URL里朋友的人格（匹配模式） */
@@ -401,15 +421,31 @@ function render(){
   document.getElementById('qtext').textContent=q.t;
   document.getElementById('pfill').style.width=(cur/QS.length*100)+'%';
   document.getElementById('ptxt').textContent='第 '+(cur+1)+' / '+QS.length+' 题';
+  document.getElementById('backBtn').style.display=cur>0?'block':'none';
   const L=['A','B','C','D'],box=document.getElementById('opts');box.innerHTML='';
   q.opts.forEach((o,i)=>{const d=document.createElement('div');d.className='opt';
     d.innerHTML='<span class="lab">'+L[i]+'</span><span>'+o.x+'</span>';d.onclick=()=>choose(i);box.appendChild(d);});
+  if(history[cur]!==undefined){
+    const opts=document.querySelectorAll('.opt');const i=history[cur];
+    opts[i].classList.add('sel');const lab=opts[i].querySelector('.lab');if(lab)lab.textContent='🍉';
+  }
   window.scrollTo(0,0);
 }
+let locked=false;
 function choose(i){
+  if(locked)return;locked=true;
+  if(history[cur]!==undefined){const old=QS[cur].opts[history[cur]].s;for(const k in old)raw[k]-=old[k];}
   const s=QS[cur].opts[i].s;for(const k in s)raw[k]+=s[k];
-  document.querySelectorAll('.opt')[i].classList.add('sel');
-  setTimeout(()=>{cur++;cur<QS.length?render():finish();},230);
+  history[cur]=i;
+  const L=['A','B','C','D'];const opts=document.querySelectorAll('.opt');
+  opts.forEach((o,idx)=>{o.style.pointerEvents='none';o.classList.remove('sel');const l=o.querySelector('.lab');if(l)l.textContent=L[idx];});
+  const sel=opts[i];sel.classList.add('sel');
+  const lab=sel.querySelector('.lab');if(lab)lab.textContent='🍉';
+  setTimeout(()=>{locked=false;cur++;cur<QS.length?render():finish();},300);
+}
+function goBack(){
+  if(cur<=0)return;
+  cur--;render();
 }
 function finish(){
   document.getElementById('quiz').classList.remove('active');
@@ -490,12 +526,20 @@ function copyLink(){
 }
 function restart(){location.href=location.origin+location.pathname;}
 function saveShot(){
-  const card=document.getElementById('card');const btns=document.querySelector('.result-btns');const inv=document.querySelector('.invite');
+  const card=document.getElementById('card');
+  const btns=document.querySelector('.result-btns');
   btns.style.visibility='hidden';
   html2canvas(card,{backgroundColor:'#fffaf0',scale:2,useCORS:true}).then(cv=>{
     btns.style.visibility='visible';
-    const a=document.createElement('a');a.download='我的暑性测试结果.png';a.href=cv.toDataURL('image/png');a.click();
-  }).catch(()=>{btns.style.visibility='visible';alert('截图失败，手动截屏也可以哦～');});
+    document.getElementById('saveImg').src=cv.toDataURL('image/png');
+    document.getElementById('saveOverlay').style.display='block';
+    document.body.style.overflow='hidden';
+    window.scrollTo(0,0);
+  }).catch(()=>{btns.style.visibility='visible';alert('生成图片失败，直接用手机截屏也可以哦～');});
+}
+function closeSave(){
+  document.getElementById('saveOverlay').style.display='none';
+  document.body.style.overflow='';
 }
 
 /* ====== 封面泡泡 ====== */
@@ -509,7 +553,18 @@ function saveShot(){
     b.style.left=(Math.random()*88)+'%';
     b.style.setProperty('--drift',(Math.random()*80-40)+'px');
     b.style.animationDuration=(7+Math.random()*7)+'s';
-    const pop=(e)=>{e.preventDefault();e.stopPropagation();b.classList.add('pop');setTimeout(()=>b.remove(),350);};
+    const POP_ICONS=['🍉','🍦','☀️','🌊','🦗','🍧','🩴','⛱️','🌴','🍡','🥤','🌻'];
+    const pop=(e)=>{
+      e.preventDefault();e.stopPropagation();
+      const rect=b.getBoundingClientRect();
+      const ic=document.createElement('div');ic.className='pop-icon';
+      ic.textContent=POP_ICONS[Math.floor(Math.random()*POP_ICONS.length)];
+      ic.style.left=(rect.left+rect.width/2-15)+'px';
+      ic.style.top=(rect.top+rect.height/2-15)+'px';
+      document.body.appendChild(ic);
+      setTimeout(()=>ic.remove(),700);
+      b.classList.add('pop');setTimeout(()=>b.remove(),350);
+    };
     b.addEventListener('pointerdown',pop);
     b.addEventListener('click',pop);
     layer.appendChild(b);
