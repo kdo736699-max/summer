@@ -104,19 +104,19 @@ body{
 .cp-emoji{font-size:30px;}
 .cp-name{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:15px;margin-top:4px;color:var(--ink);}
 .cp-tip{font-size:11.5px;color:var(--ink-soft);margin-top:5px;line-height:1.4;}
-.scores{margin-top:28px;background:#fff;border-radius:16px;padding:20px 18px;border:2px dashed #ecd9b0;}
-.scores-h{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:16px;text-align:center;}
-.score-row{display:flex;align-items:center;gap:10px;margin-bottom:13px;font-size:13.5px;}
-.score-row .nm{width:64px;flex-shrink:0;color:var(--ink-soft);}
-.score-track{width:100%;height:15px;background:#f0e6cf;border-radius:10px;overflow:hidden;}
-.score-fill{height:100%;border-radius:10px;width:0;transition:width 1s cubic-bezier(.22,1,.36,1);}
-.score-val{width:30px;text-align:right;font-family:"YouYuan","幼圆",sans-serif;font-weight:700;color:var(--ink);flex-shrink:0;}
-.score-note{font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:6px;opacity:.78;}
-.score-row{align-items:flex-start;}
-.score-row .nm{width:auto;min-width:88px;}
-.score-row .nm .nm-main{font-size:14px;color:var(--ink);font-weight:600;}
-.score-row .nm .nm-sub{font-size:11px;color:var(--ink-soft);display:block;margin-top:1px;line-height:1.3;}
-.score-row .mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:4px;}
+.scores{margin-top:28px;background:#fff;border-radius:16px;padding:22px 18px;border:2px dashed #ecd9b0;}
+.scores-h{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:18px;text-align:center;}
+.dim{margin-bottom:18px;}
+.dim:last-of-type{margin-bottom:0;}
+.dim-name{font-size:13.5px;font-weight:600;color:var(--ink);text-align:center;margin-bottom:6px;}
+.dim-name .dim-val{color:var(--ink-soft);font-weight:400;font-size:12px;margin-left:4px;}
+.dim-bar{display:flex;align-items:center;gap:9px;}
+.dim-end{font-size:12px;flex-shrink:0;width:34px;font-weight:500;}
+.dim-end.left{text-align:right;}
+.dim-end.right{text-align:left;}
+.dim-track{flex:1;height:12px;background:#f0e6cf;border-radius:10px;overflow:hidden;}
+.dim-fill{height:100%;border-radius:10px;width:0;transition:width 1s cubic-bezier(.22,1,.36,1);}
+.score-note{font-size:11.5px;color:var(--ink-soft);text-align:center;margin-top:14px;opacity:.78;}
 .invite{margin-top:28px;background:linear-gradient(135deg,#fff0e8,#ffe9d6);border-radius:18px;padding:22px 20px;text-align:center;border:2px solid var(--coral);}
 .invite-h{font-family:"YouYuan","幼圆",sans-serif;font-weight:700;font-size:17px;color:var(--coral-deep);margin-bottom:6px;}
 .invite-sub{font-size:13px;color:var(--ink-soft);margin-bottom:16px;line-height:1.6;}
@@ -166,12 +166,12 @@ body{
   <section id="quiz" class="scene">
     <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
     <div class="progress-txt" id="ptxt">第 1 / 12 题</div>
-    <div id="backBtn" style="display:none;margin-top:14px;">
-      <span onclick="goBack()" style="cursor:pointer;font-size:14px;color:var(--ink-soft);display:inline-flex;align-items:center;gap:4px;">‹ 返回上一题</span>
-    </div>
     <div class="q-num fancy" id="qnum">Q1</div>
     <div class="q-emoji" id="qemoji">🌀</div>
     <div class="q-text" id="qtext"></div>
+    <div id="backBtn" style="display:none;margin:0 0 16px;">
+      <span onclick="goBack()" style="cursor:pointer;font-size:14px;color:var(--coral-deep);display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--coral);border-radius:30px;padding:8px 18px;font-weight:600;">‹ 返回上一题</span>
+    </div>
     <div id="opts"></div>
   </section>
 
@@ -213,10 +213,22 @@ body{
         </div>
         <div class="scores">
           <div class="scores-h">你的暑性维度</div>
-          <div class="score-row"><span class="nm"><span class="nm-main">活力</span><span class="nm-sub">安静 ↔ 外放</span></span><div class="mid"><div class="score-track"><div class="score-fill" id="sE" style="background:linear-gradient(90deg,#ff8a5c,#ffc93f)"></div></div></div><span class="score-val" id="vE">0</span></div>
-          <div class="score-row"><span class="nm"><span class="nm-main">共情</span><span class="nm-sub">钝感 ↔ 细腻</span></span><div class="mid"><div class="score-track"><div class="score-fill" id="sW" style="background:linear-gradient(90deg,#56b8e0,#9fe1cb)"></div></div></div><span class="score-val" id="vW">0</span></div>
-          <div class="score-row"><span class="nm"><span class="nm-main">行动力</span><span class="nm-sub">随性 ↔ 雷厉</span></span><div class="mid"><div class="score-track"><div class="score-fill" id="sS" style="background:linear-gradient(90deg,#5dca8f,#a8e063)"></div></div></div><span class="score-val" id="vS">0</span></div>
-          <div class="score-row"><span class="nm"><span class="nm-main">主见</span><span class="nm-sub">随和 ↔ 有主张</span></span><div class="mid"><div class="score-track"><div class="score-fill" id="sO" style="background:linear-gradient(90deg,#b58ce0,#e0a8d8)"></div></div></div><span class="score-val" id="vO">0</span></div>
+          <div class="dim">
+            <div class="dim-name">活力 <span class="dim-val" id="vE">0</span></div>
+            <div class="dim-bar"><span class="dim-end left" style="color:#ef8a3c">安静</span><div class="dim-track"><div class="dim-fill" id="sE" style="background:linear-gradient(90deg,#ff8a5c,#ffc93f)"></div></div><span class="dim-end right" style="color:#d99500">外放</span></div>
+          </div>
+          <div class="dim">
+            <div class="dim-name">共情 <span class="dim-val" id="vW">0</span></div>
+            <div class="dim-bar"><span class="dim-end left" style="color:#3a90c9">钝感</span><div class="dim-track"><div class="dim-fill" id="sW" style="background:linear-gradient(90deg,#56b8e0,#7fd9c0)"></div></div><span class="dim-end right" style="color:#2a9d8f">细腻</span></div>
+          </div>
+          <div class="dim">
+            <div class="dim-name">行动力 <span class="dim-val" id="vS">0</span></div>
+            <div class="dim-bar"><span class="dim-end left" style="color:#3bb273">随性</span><div class="dim-track"><div class="dim-fill" id="sS" style="background:linear-gradient(90deg,#5dca8f,#a8e063)"></div></div><span class="dim-end right" style="color:#6a9c1a">雷厉</span></div>
+          </div>
+          <div class="dim">
+            <div class="dim-name">主见 <span class="dim-val" id="vO">0</span></div>
+            <div class="dim-bar"><span class="dim-end left" style="color:#9b6fc7">佛系</span><div class="dim-track"><div class="dim-fill" id="sO" style="background:linear-gradient(90deg,#b58ce0,#e0a8d8)"></div></div><span class="dim-end right" style="color:#c060a8">有主见</span></div>
+          </div>
           <div class="score-note">数值由你的作答实时生成 · 换个答案，你可能就是另一种夏天</div>
         </div>
         <div class="invite">
@@ -483,12 +495,19 @@ function showResult(){
   // 二维码
   makeQR();
   window.scrollTo(0,0);
-  setTimeout(()=>{
-    document.getElementById('sE').style.width=myUser.E+'%';document.getElementById('sW').style.width=myUser.W+'%';
-    document.getElementById('sS').style.width=myUser.S+'%';document.getElementById('sO').style.width=myUser.O+'%';
-    document.getElementById('vE').textContent=Math.round(myUser.E);document.getElementById('vW').textContent=Math.round(myUser.W);
-    document.getElementById('vS').textContent=Math.round(myUser.S);document.getElementById('vO').textContent=Math.round(myUser.O);
-  },200);
+  // 数字立即填上（不依赖动画）
+  document.getElementById('vE').textContent=Math.round(myUser.E);
+  document.getElementById('vW').textContent=Math.round(myUser.W);
+  document.getElementById('vS').textContent=Math.round(myUser.S);
+  document.getElementById('vO').textContent=Math.round(myUser.O);
+  // 进度条：双重 rAF 确保布局完成后再设宽度，手机端动画才稳定触发
+  const setBars=()=>{
+    document.getElementById('sE').style.width=myUser.E+'%';
+    document.getElementById('sW').style.width=myUser.W+'%';
+    document.getElementById('sS').style.width=myUser.S+'%';
+    document.getElementById('sO').style.width=myUser.O+'%';
+  };
+  requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(setBars,80)));
 }
 function renderMatch(){
   const me=TYPES[myKey],fr=TYPES[friendKey];
@@ -538,14 +557,21 @@ function restart(){location.href=location.origin+location.pathname;}
 function saveShot(){
   const card=document.getElementById('card');
   const btns=document.querySelector('.result-btns');
-  btns.style.visibility='hidden';
-  html2canvas(card,{backgroundColor:'#fffaf0',scale:2,useCORS:true,allowTaint:false,imageTimeout:0,logging:false}).then(cv=>{
-    btns.style.visibility='visible';
-    document.getElementById('saveImg').src=cv.toDataURL('image/png');
-    document.getElementById('saveOverlay').style.display='block';
-    document.body.style.overflow='hidden';
-    window.scrollTo(0,0);
-  }).catch(()=>{btns.style.visibility='visible';alert('生成图片失败，直接用手机截屏也可以哦～');});
+  const invite=document.querySelector('.invite');
+  const ending=document.querySelector('.ending');
+  const foot=document.querySelector('.foot');
+  // 截图时隐藏二维码邀请/结语/按钮，只保留 人格+记忆+分析+关系+维度
+  btns.style.display='none';invite.style.display='none';ending.style.display='none';if(foot)foot.style.display='none';
+  const restore=()=>{btns.style.display='';invite.style.display='';ending.style.display='';if(foot)foot.style.display='';};
+  setTimeout(()=>{
+    html2canvas(card,{backgroundColor:'#fffaf0',scale:2,useCORS:true,allowTaint:false,imageTimeout:0,logging:false}).then(cv=>{
+      restore();
+      document.getElementById('saveImg').src=cv.toDataURL('image/png');
+      document.getElementById('saveOverlay').style.display='block';
+      document.body.style.overflow='hidden';
+      window.scrollTo(0,0);
+    }).catch(()=>{restore();alert('生成图片失败，直接用手机截屏也可以哦～');});
+  },60);
 }
 function closeSave(){
   document.getElementById('saveOverlay').style.display='none';
